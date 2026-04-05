@@ -1,7 +1,7 @@
 {
 "name": "Aaoza Admin Panel",
 "short_name": "Admin",
-"start_url": "dashboard.html",
+"start_url": "login.html",
 "display": "standalone",
 "background_color": "#ffffff",
 "theme_color": "#0a84ff",
