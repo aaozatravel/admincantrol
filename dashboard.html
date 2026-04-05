@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0a84ff">
 
 </head>
-<body onload="initDashboard()">
+<body onload="checkAdmin(); initDashboard();">
 
 <div class="admin">
 
@@ -137,5 +137,13 @@ deferredPrompt.prompt();
 });
 </script>
 
+  <script>
+function checkAdmin(){
+const admin = localStorage.getItem("admin")
+if(!admin){
+window.location.href = "login.html"
+}
+}
+  </script>
 </body>
 </html>
