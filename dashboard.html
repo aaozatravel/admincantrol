@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Dashboard</title>
-<link rel="stylesheet" href="../css/admin-dashboard.css">
+<link rel="stylesheet" href="admin-dashboard.css">
 </head>
 
 <body onload="initDashboard()">
@@ -51,7 +51,7 @@ Cancelled Bookings: <span id="cancelCount">0</span>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="/js/supabase.js"></script>
+<script src="supabase.js"></script>
 
 <script>
 async function initDashboard(){
@@ -108,7 +108,7 @@ window.location.href = "bookings.html?status="+status
 
 function logoutAdmin(){
 localStorage.removeItem("admin")
-window.location.href="../login.html"
+window.location.href="login.html"
 }
 </script>
 
