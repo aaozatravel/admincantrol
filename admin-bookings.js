@@ -169,6 +169,32 @@ html += `
 
 <hr>
 
+<hr>
+
+<h3>Cab Details</h3>
+
+<div class="detail-row">
+Cab Number:
+<input type="text" id="cab_number" value="${data.cab_number || ''}">
+</div>
+
+<div class="detail-row">
+Driver Name:
+<input type="text" id="driver_name" value="${data.driver_name || ''}">
+</div>
+
+<div class="detail-row">
+Cab Photo URL:
+<input type="text" id="cab_photo" value="${data.cab_photo || ''}">
+</div>
+
+<div class="detail-row">
+Driver Photo URL:
+<input type="text" id="driver_photo" value="${data.driver_photo || ''}">
+</div>
+
+<button onclick="saveCabDetails()">Save Cab</button>
+
 <h3>Assign Hotel (4N / 5D)</h3>
 
 <table style="width:100%;border-collapse:collapse">
@@ -258,6 +284,34 @@ alert("Hotel Assigned Successfully")
 loadBookings()
 }
 
+
+async function saveCabDetails(){
+
+const cab_number = document.getElementById("cab_number").value
+const driver_name = document.getElementById("driver_name").value
+const cab_photo = document.getElementById("cab_photo").value
+const driver_photo = document.getElementById("driver_photo").value
+
+const { error } = await supabaseClient
+.from("bookings")
+.update({
+cab_number,
+driver_name,
+cab_photo,
+driver_photo
+})
+.eq("id", currentBookingId)
+
+if(error){
+alert("Error saving cab details")
+console.log(error)
+return
+}
+
+alert("Cab Assigned Successfully")
+loadBookings()
+
+}
 /* CLOSE */
 function closeModal(){
 document.getElementById("viewModal").style.display = "none"
