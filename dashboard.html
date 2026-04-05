@@ -3,8 +3,11 @@
 <head>
 <title>Dashboard</title>
 <link rel="stylesheet" href="admin-dashboard.css">
-</head>
 
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a84ff">
+
+</head>
 <body onload="initDashboard()">
 
 <div class="admin">
@@ -110,6 +113,25 @@ function logoutAdmin(){
 localStorage.removeItem("admin")
 window.location.href="login.html"
 }
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+navigator.serviceWorker.register("service-worker.js");
+}
+
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+e.preventDefault();
+deferredPrompt = e;
+
+setTimeout(()=>{
+if(deferredPrompt){
+deferredPrompt.prompt();
+}
+},1500);
+
+});
 </script>
 
 </body>
