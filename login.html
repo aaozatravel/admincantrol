@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Login</title>
+<link rel="stylesheet" href="../css/admin-login.css">
+</head>
+
+<body class="admin-login">
+
+<div class="login-box">
+
+<img src="../images/logo.jpg" class="login-logo">
+
+<h2>AAOZA Travels</h2>
+<p>Admin Panel</p>
+
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="loginAdmin()">Login</button>
+
+</div>
+
+<!-- SUPABASE CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase.js"></script>
+<script src="../js/admin-auth.js"></script>
+
+</body>
+</html>

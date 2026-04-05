@@ -1,0 +1,85 @@
+body{
+margin:0;
+font-family:Segoe UI, sans-serif;
+background:#f5f7fb;
+}
+
+.admin{
+display:flex;
+min-height:100vh;
+}
+
+/* Sidebar */
+.sidebar{
+width:230px;
+background:linear-gradient(180deg,#0f2027,#203a43,#2c5364);
+color:white;
+padding:20px;
+}
+
+.sidebar h2{
+margin-bottom:25px;
+}
+
+.sidebar a{
+display:block;
+color:white;
+padding:12px;
+margin-bottom:8px;
+text-decoration:none;
+border-radius:8px;
+transition:.3s;
+}
+
+.sidebar a:hover{
+background:rgba(255,255,255,0.15);
+}
+
+/* Content */
+.content{
+flex:1;
+padding:30px;
+}
+
+.settings-card{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+max-width:500px;
+}
+
+.settings-card label{
+display:block;
+margin-top:15px;
+font-weight:600;
+}
+
+.settings-card input{
+width:100%;
+padding:12px;
+margin-top:5px;
+border-radius:8px;
+border:1px solid #ddd;
+}
+
+.settings-card input:focus{
+outline:none;
+border-color:#2c5364;
+}
+
+.settings-card button{
+margin-top:20px;
+padding:12px;
+width:100%;
+border:none;
+background:#2c5364;
+color:white;
+font-size:16px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.settings-card button:hover{
+background:#203a43;
+}

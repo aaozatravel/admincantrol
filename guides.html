@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Guides</title>
+<link rel="stylesheet" href="../css/admin-dashboard.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+.form-grid img{
+width:80px;
+height:80px;
+object-fit:cover;
+border-radius:8px;
+margin-top:5px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="admin">
+
+<div class="sidebar">
+<h2>Admin</h2>
+<a href="dashboard.html">Dashboard</a>
+<a href="tours.html">Tours</a>
+<a href="users.html">Users</a>
+<a href="bookings.html">Bookings</a>
+<a href="guides.html">Guides</a>
+<a onclick="logoutAdmin()">Logout</a>
+</div>
+
+<div class="content">
+<h1>Create Guide</h1>
+
+<div class="form-grid">
+
+<input id="gname" placeholder="Guide Name">
+<input id="gphone" placeholder="Phone">
+<input id="gage" placeholder="Age">
+<input id="ggender" placeholder="Gender">
+
+<!-- PHOTO UPLOAD -->
+<label>Guide Photo</label>
+<input type="file" id="gphoto" accept="image/*" onchange="previewPhoto(event)">
+<img id="photoPreview" src="" style="display:none;">
+
+<!-- ID CARD UPLOAD -->
+<label>ID Card</label>
+<input type="file" id="gidcard" accept="image/*" onchange="previewId(event)">
+<img id="idPreview" src="" style="display:none;">
+
+<input id="gemail" placeholder="Email">
+<input id="gpassword" placeholder="Password">
+
+</div>
+
+<br>
+<button onclick="createGuide()">Register Guide</button>
+
+</div>
+</div>
+
+<script>
+function previewPhoto(e){
+const file = e.target.files[0];
+if(file){
+document.getElementById("photoPreview").src = URL.createObjectURL(file);
+document.getElementById("photoPreview").style.display="block";
+}
+}
+
+function previewId(e){
+const file = e.target.files[0];
+if(file){
+document.getElementById("idPreview").src = URL.createObjectURL(file);
+document.getElementById("idPreview").style.display="block";
+}
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase.js"></script>
+<script src="../js/admin-guides.js"></script>
+
+</body>
+</html>

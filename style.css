@@ -1,0 +1,1268 @@
+/* ================= RESET ================= */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:#f5f7f9;
+overflow-x:hidden;
+}
+
+/* ================= HEADER ================= */
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 15px;
+background:#fff;
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:8px;
+font-weight:bold;
+font-size:14px;
+}
+
+.logo img{
+height:32px;
+width:32px;
+object-fit:cover;
+border-radius:6px;
+}
+
+nav a{
+margin:0 6px;
+text-decoration:none;
+color:#333;
+font-size:13px;
+}
+
+/* ================= HERO ================= */
+.hero{
+height:40vh;
+background:url('../images/kashmir.jpg') center/cover no-repeat;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:white;
+}
+
+.hero h1{
+font-size:20px;
+}
+
+.hero p{
+font-size:13px;
+margin-top:5px;
+}
+
+.hero button{
+margin-top:12px;
+padding:8px 18px;
+background:#1e88e5;
+border:none;
+color:white;
+border-radius:6px;
+}
+
+/* ================= SERVICES ================= */
+.services{
+padding:25px 12px;
+text-align:center;
+}
+
+.services h2{
+margin-bottom:15px;
+}
+
+.services-container{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+}
+
+.service-card{
+background:#fff;
+padding:10px;
+border-radius:10px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.service-card img{
+width:40px;
+height:40px;
+object-fit:contain;
+margin-bottom:6px;
+}
+
+.service-card h3{
+font-size:12px;
+font-weight:600;
+}
+
+/* ================= AD BANNER ================= */
+.ad-banner{
+margin:20px 10px;
+border-radius:14px;
+overflow:hidden;
+position:relative;
+}
+
+.ad-banner img{
+width:100%;
+height:180px;
+object-fit:cover;
+display:block;
+}
+
+.ad-text{
+position:absolute;
+top:50%;
+left:20px;
+transform:translateY(-50%);
+color:white;
+}
+
+.ad-text h2{
+font-size:18px;
+}
+
+.ad-text p{
+font-size:13px;
+margin:5px 0;
+}
+
+.ad-text button{
+padding:6px 14px;
+border:none;
+background:#ff5722;
+color:white;
+border-radius:5px;
+}
+
+/* ================= MAP ================= */
+.kashmir-map{
+padding:15px 10px;
+}
+
+.kashmir-map h2{
+margin-bottom:10px;
+}
+
+#map{
+width:100%;
+height:220px;
+border-radius:12px;
+}
+
+/* ===== PREMIUM BOTTOM NAV ===== */
+.bottom-nav{
+position:fixed;
+bottom:15px;
+left:50%;
+transform:translateX(-50%);
+width:90%;
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(12px);
+display:flex;
+justify-content:space-around;
+padding:12px 0;
+border-radius:25px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+z-index:999;
+}
+/* nav item */
+.nav-item{
+text-align:center;
+text-decoration:none;
+color:black;
+font-size:11px;
+transition:0.3s;
+position:relative;
+}
+/* icon */
+.nav-item img{
+width:26px;
+height:26px;
+display:block;
+margin:auto;
+transition:0.3s;
+}
+/* hover animation */
+.nav-item:hover{
+transform:translateY(-6px);
+}
+.nav-item:hover img{
+transform:scale(1.2);
+}
+/* active glow */
+.nav-item::after{
+content:"";
+position:absolute;
+bottom:-5px;
+left:50%;
+transform:translateX(-50%);
+width:0%;
+height:3px;
+background:linear-gradient(90deg,#1e88e5,#42a5f5);
+border-radius:5px;
+transition:0.3s;
+}
+.nav-item:hover::after{
+width:70%;
+}
+/* floating effect */
+@keyframes floatNav{
+0%{transform:translateY(0)}
+50%{transform:translateY(-3px)}
+100%{transform:translateY(0)}
+}
+.nav-item img{
+animation:floatNav 3s ease-in-out infinite;
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+
+nav{
+display:none;
+}
+
+.hero{
+height:30vh;
+}
+
+.services-container{
+grid-template-columns:repeat(4,1fr);
+}
+
+}
+
+/* ================= TOUR PAGE ================= */
+.tour-section{
+padding:20px 12px 80px;
+}
+
+.tour-section h2{
+margin-bottom:15px;
+font-size:20px;
+}
+
+/* ===== GRID ===== */
+.tour-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:15px;
+}
+
+/* ===== CARD ===== */
+.tour-card{
+background:#fff;
+border-radius:14px;
+overflow:hidden;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* ===== IMAGE BOX ===== */
+.tour-img-box{
+position:relative;
+}
+
+.tour-img-box img{
+width:100%;
+height:170px;
+object-fit:cover;
+display:block;
+}
+
+/* ===== DAYS BADGE ===== */
+.tour-days{
+position:absolute;
+top:10px;
+left:10px;
+background:#000000aa;
+color:white;
+padding:4px 8px;
+font-size:12px;
+border-radius:6px;
+}
+
+/* ===== BODY ===== */
+.tour-body{
+padding:12px;
+}
+
+.tour-body h3{
+font-size:16px;
+margin-bottom:8px;
+}
+
+/* ===== META ===== */
+.tour-meta{
+display:flex;
+gap:10px;
+font-size:12px;
+color:#666;
+margin-bottom:8px;
+}
+
+/* ===== INCLUDES ===== */
+.tour-includes{
+font-size:16px;
+margin-bottom:8px;
+}
+
+/* ===== PRICE ===== */
+.tour-price{
+font-size:18px;
+font-weight:bold;
+color:#1e88e5;
+margin-bottom:10px;
+}
+
+/* ===== BUTTON ===== */
+.tour-btns{
+margin-bottom:8px;
+}
+
+.view-btn{
+display:block;
+text-align:center;
+background:#1e88e5;
+color:red;
+padding:8px;
+border-radius:8px;
+text-decoration:none;
+font-size:14px;
+}
+
+/* ===== EXTRA ===== */
+.tour-extra{
+display:flex;
+justify-content:space-between;
+font-size:12px;
+color:blue;
+margin-top:5px;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:768px){
+
+.tour-grid{
+grid-template-columns:1fr;
+}
+
+.tour-img-box img{
+height:180px;
+}
+
+}
+
+/* ================= TOUR DETAILS PAGE ================= */
+
+.back-btn{
+margin:15px;
+padding:8px 14px;
+border:none;
+background:#f1f1f1;
+border-radius:8px;
+cursor:pointer;
+}
+
+/* MAIN */
+.tour-details{
+padding:10px 15px 80px;
+}
+
+/* HERO IMAGE */
+.tour-hero img{
+width:100%;
+height:230px;
+object-fit:cover;
+border-radius:16px;
+}
+
+/* TITLE */
+.tour-details h1{
+margin-top:12px;
+font-size:20px;
+font-weight:600;
+}
+
+/* RATING */
+.tour-rating{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin:10px 0;
+font-size:13px;
+}
+
+.badge{
+background:#ffe5ea;
+color:#e91e63;
+padding:4px 8px;
+border-radius:6px;
+}
+
+/* PRICE BOX */
+.price-box{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#fff;
+padding:14px;
+border-radius:14px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+margin:10px 0;
+}
+
+.big-book-btn{
+background:#e91e63;
+color:white;
+padding:10px 18px;
+border-radius:8px;
+text-decoration:none;
+font-weight:500;
+}
+
+/* INCLUSION */
+.inclusion{
+margin:15px 0;
+font-weight:600;
+}
+
+/* ACTIVITY */
+.activity-section{
+margin:20px 0;
+}
+
+.activity-note{
+font-size:12px;
+color:#666;
+margin-bottom:10px;
+}
+
+/* GRID */
+.activity-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+}
+
+/* CARD */
+.activity-card{
+background:#fff;
+padding:12px;
+border-radius:12px;
+text-align:center;
+box-shadow:0 3px 10px rgba(0,0,0,0.08);
+cursor:pointer;
+transition:.2s;
+}
+
+.activity-card:hover{
+transform:translateY(-2px);
+}
+
+.activity-card input{
+margin-bottom:5px;
+}
+
+.activity-card .icon{
+font-size:22px;
+}
+
+.activity-card p{
+font-size:12px;
+margin-top:5px;
+}
+
+/* PLACE IMAGE */
+.place-card{
+padding:8px;
+}
+
+.place-img{
+width:100%;
+height:85px;
+object-fit:cover;
+border-radius:8px;
+margin-bottom:5px;
+}
+
+/* ===== DEPARTURE SECTION ===== */
+.departure-box{
+background:#f3f4f6;
+padding:15px;
+border-radius:16px;
+margin-top:20px;
+}
+
+/* MONTHS */
+.months-grid{
+display:flex;
+gap:8px;
+overflow-x:auto;
+margin:10px 0;
+}
+
+.months-grid::-webkit-scrollbar{
+display:none;
+}
+
+.months-grid button{
+background:#f1f1f1;
+border-radius:20px;
+padding:6px 12px;
+border:none;
+font-size:12px;
+white-space:nowrap;
+}
+
+.months-grid button.active{
+background:red;
+color:white;
+}
+
+/* NOTE */
+.note{
+font-size:12px;
+color:#777;
+margin-bottom:10px;
+}
+
+/* ===== HORIZONTAL CARDS ===== */
+.departure-cards{
+display:flex;
+gap:12px;
+overflow-x:auto;
+padding:10px 5px;
+}
+
+.departure-cards::-webkit-scrollbar{
+display:none;
+}
+
+/* CARD */
+.depart-card{
+min-width:260px;
+background:white;
+border-radius:14px;
+padding:12px;
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
+border:1px solid #eee;
+transition:.2s;
+}
+
+.depart-card.selected{
+border:2px solid #e91e63;
+}
+
+/* HEAD */
+.card-head{
+font-size:13px;
+color:#666;
+margin-bottom:6px;
+}
+
+/* BODY */
+.card-body{
+font-size:13px;
+color:#333;
+line-height:1.5;
+}
+
+/* PRICE */
+.card-price{
+color:#e91e63;
+font-size:16px;
+font-weight:bold;
+margin:8px 0;
+}
+
+/* BUTTONS */
+.card-actions{
+display:flex;
+gap:8px;
+}
+
+.book-btn{
+flex:1;
+background:#e91e63;
+color:white;
+border:none;
+padding:7px;
+border-radius:8px;
+font-size:13px;
+}
+
+.view-btn{
+flex:1;
+background:#f1f1f1;
+border:none;
+padding:7px;
+border-radius:8px;
+font-size:13px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+.activity-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.tour-hero img{
+height:200px;
+}
+
+.depart-card{
+min-width:230px;
+}
+
+}
+
+/* ================= BOOKING PAGE ================= */
+
+.booking-page{
+padding:10px 15px 80px;
+}
+
+/* HEADER */
+.booking-header{
+display:flex;
+align-items:center;
+gap:10px;
+padding:10px 15px;
+}
+
+.booking-logo{
+height:40px;
+border-radius:8px;
+}
+
+.booking-title{
+font-weight:600;
+font-size:16px;
+}
+
+/* STEP TITLE */
+.step-title{
+font-weight:600;
+margin:18px 0 10px;
+font-size:15px;
+}
+
+/* BOX */
+.traveller-box{
+background:#fff;
+padding:12px;
+border-radius:14px;
+box-shadow:0 3px 10px rgba(0,0,0,0.08);
+}
+
+/* ROW */
+.traveller-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:8px 0;
+border-bottom:1px solid #eee;
+}
+
+.traveller-row:last-child{
+border-bottom:none;
+}
+
+/* COUNTER */
+.counter{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.counter button{
+width:28px;
+height:28px;
+border:none;
+background:#e91e63;
+color:white;
+border-radius:6px;
+font-size:16px;
+}
+
+.counter span{
+min-width:20px;
+text-align:center;
+}
+
+/* ROOM TABLE */
+.room-table{
+background:#fff;
+border-radius:14px;
+box-shadow:0 3px 10px rgba(0,0,0,0.08);
+overflow:hidden;
+}
+
+.room-row{
+display:grid;
+grid-template-columns:1fr 80px 100px;
+align-items:center;
+padding:10px;
+border-bottom:1px solid #eee;
+font-size:13px;
+}
+
+.room-row.header{
+background:#f5f5f5;
+font-weight:600;
+}
+
+.room-row:last-child{
+border-bottom:none;
+}
+
+/* NOTE */
+.traveller-note{
+font-size:12px;
+color:#666;
+margin:10px 0;
+}
+
+/* MEMBER TABLE */
+.member-table{
+background:#fff;
+border-radius:14px;
+box-shadow:0 3px 10px rgba(0,0,0,0.08);
+overflow:hidden;
+}
+
+.member-row{
+display:grid;
+grid-template-columns:1fr 90px 60px 1fr;
+gap:6px;
+padding:8px;
+border-bottom:1px solid #eee;
+}
+
+.member-row.header{
+background:#f5f5f5;
+font-weight:600;
+}
+
+.member-row input,
+.member-row select{
+padding:6px;
+border:1px solid #ddd;
+border-radius:6px;
+font-size:12px;
+}
+
+/* CONFIRM BUTTON */
+.confirm-btn{
+width:100%;
+margin-top:20px;
+background:#e91e63;
+color:white;
+border:none;
+padding:12px;
+border-radius:12px;
+font-size:15px;
+font-weight:600;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+.member-row{
+grid-template-columns:1fr;
+}
+
+.member-row.header{
+display:none;
+}
+
+.room-row{
+grid-template-columns:1fr 70px 90px;
+}
+
+}
+
+/* ================= HOTEL PAGE ================= */
+
+.packages{
+padding:15px;
+}
+
+.packages h2{
+margin-bottom:12px;
+font-size:20px;
+}
+
+/* GRID */
+.hotel-container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:15px;
+}
+
+/* CARD */
+.hotel-card{
+background:#fff;
+border-radius:16px;
+overflow:hidden;
+box-shadow:0 4px 14px rgba(0,0,0,0.08);
+transition:.2s;
+}
+
+.hotel-card:hover{
+transform:translateY(-3px);
+}
+
+/* IMAGE */
+.hotel-card img{
+width:100%;
+height:180px;
+object-fit:cover;
+}
+
+/* TITLE */
+.hotel-card h3{
+font-size:16px;
+margin:10px 12px 5px;
+}
+
+/* DESC */
+.hotel-card p{
+font-size:13px;
+color:#666;
+margin:0 12px 10px;
+}
+
+/* SELECT BOX */
+.select-box{
+padding:0 12px 8px;
+font-size:13px;
+}
+
+.select-box input{
+margin-right:6px;
+accent-color:#e91e63;
+}
+
+/* BUTTON */
+.hotel-card button{
+width:calc(100% - 24px);
+margin:10px 12px 12px;
+padding:9px;
+border:none;
+background:#e91e63;
+color:white;
+border-radius:10px;
+font-size:13px;
+cursor:pointer;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+.hotel-container{
+grid-template-columns:1fr;
+}
+
+.hotel-card img{
+height:200px;
+}
+
+}
+
+/* ================= REELS PAGE ================= */
+
+.reels{
+padding:15px;
+}
+
+.reels h2{
+margin-bottom:12px;
+font-size:20px;
+}
+
+/* GRID */
+.reels-container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:15px;
+}
+
+/* CARD */
+.reel{
+background:#000;
+border-radius:16px;
+overflow:hidden;
+box-shadow:0 4px 14px rgba(0,0,0,0.12);
+}
+
+/* VIDEO RATIO (REELS STYLE) */
+.reel iframe{
+width:100%;
+height:460px;
+border:none;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+.reels-container{
+grid-template-columns:1fr;
+}
+
+.reel iframe{
+height:520px;
+}
+
+}
+
+/* ================= ABOUT PAGE ================= */
+
+.about{
+padding:15px;
+}
+
+.about h1{
+margin-bottom:10px;
+font-size:22px;
+}
+
+.about p{
+font-size:14px;
+color:#555;
+line-height:1.6;
+margin-bottom:10px;
+}
+
+/* FOUNDERS */
+.founders{
+padding:15px;
+}
+
+.founders h2{
+margin-bottom:12px;
+}
+
+/* GRID */
+.founders-container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+gap:15px;
+text-align:center;
+}
+
+/* CARD */
+.founder{
+background:#fff;
+padding:12px;
+border-radius:16px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* CIRCLE IMAGE */
+.founder img{
+width:90px;
+height:90px;
+object-fit:cover;
+border-radius:50%;
+margin-bottom:8px;
+border:3px solid #e91e63;
+}
+
+/* NAME */
+.founder h3{
+font-size:14px;
+margin:5px 0;
+}
+
+/* ROLE */
+.founder p{
+font-size:12px;
+color:#777;
+}
+
+/* SERVICES */
+.about-services{
+padding:15px;
+}
+
+.about-services-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin-top:10px;
+}
+
+.about-services-grid div{
+background:#fff;
+padding:10px;
+border-radius:12px;
+text-align:center;
+font-size:13px;
+box-shadow:0 3px 10px rgba(0,0,0,0.08);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+.about-services-grid{
+grid-template-columns:1fr;
+}
+
+.founders-container{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+/* ================= GALLERY PAGE ================= */
+
+.gallery-title{
+padding:15px;
+font-size:22px;
+font-weight:600;
+}
+
+/* GRID */
+.gallery-container{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+padding:0 15px 90px;
+}
+
+/* IMAGE */
+.gallery-container img{
+width:100%;
+height:180px;   /* image thodi badi */
+object-fit:cover;
+border-radius:14px;
+box-shadow:0 4px 12px rgba(0,0,0,0.12);
+transition:.2s;
+}
+
+.gallery-container img:hover{
+transform:scale(1.02);
+}
+
+/* TABLET */
+@media(min-width:768px){
+.gallery-container{
+grid-template-columns:repeat(3,1fr);
+}
+
+.gallery-container img{
+height:200px;
+}
+}
+
+/* DESKTOP */
+@media(min-width:1024px){
+.gallery-container{
+grid-template-columns:repeat(4,1fr);
+}
+
+.gallery-container img{
+height:220px;
+}
+}
+
+/* ================= CONTACT PAGE ================= */
+
+.contact{
+padding:15px;
+}
+
+.contact h2{
+margin-bottom:8px;
+}
+
+.contact-desc{
+font-size:14px;
+color:#555;
+line-height:1.6;
+margin-bottom:15px;
+}
+
+/* EMAIL BOX */
+.email-box{
+background:#fff;
+padding:12px;
+border-radius:14px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+margin-bottom:12px;
+}
+
+.email-box a{
+text-decoration:none;
+color:#333;
+font-size:14px;
+}
+
+/* WHATSAPP BOX */
+.whatsapp-box{
+background:#fff;
+padding:12px;
+border-radius:14px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+display:flex;
+flex-direction:column;
+gap:10px;
+margin-bottom:15px;
+}
+
+.whatsapp-box a{
+display:flex;
+align-items:center;
+gap:8px;
+text-decoration:none;
+background:#25D366;
+color:white;
+padding:10px;
+border-radius:10px;
+font-size:14px;
+}
+
+.whatsapp-box img{
+width:18px;
+height:18px;
+}
+
+/* GROUP BUTTON */
+.whatsapp-box a.group{
+background:#128C7E;
+}
+
+/* FOUNDERS */
+.founder-contact{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:12px;
+margin-top:10px;
+}
+
+.founder-card{
+background:#fff;
+padding:12px;
+border-radius:16px;
+text-align:center;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.founder-card img{
+width:80px;
+height:80px;
+border-radius:50%;
+object-fit:cover;
+margin-bottom:8px;
+border:3px solid #e91e63;
+}
+
+.founder-card h4{
+font-size:14px;
+margin-bottom:6px;
+}
+
+.founder-card a{
+text-decoration:none;
+color:#e91e63;
+font-size:13px;
+font-weight:500;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+.founder-contact{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+/* header */
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px 15px;
+background:#fff;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+/* logo */
+.logo{
+display:flex;
+align-items:center;
+gap:8px;
+font-weight:600;
+}
+
+.logo img{
+height:35px;
+}
+
+/* menu icon */
+.menu-toggle{
+display:none;
+font-size:26px;
+cursor:pointer;
+}
+
+/* nav desktop */
+nav{
+display:flex;
+gap:20px;
+}
+
+/* mobile */
+@media(max-width:768px){
+
+.menu-toggle{
+display:block;
+}
+
+/* change here */
+nav{
+position:absolute;
+top:60px;
+right:10px;   /* right side align */
+width:180px;  /* fixed small width */
+background:#fff;
+display:none;
+flex-direction:column;
+border-radius:8px;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+overflow:hidden;
+}
+
+nav.active{
+display:flex;
+}
+
+nav a{
+padding:12px 15px;
+display:block;
+border-bottom:1px solid #eee;
+}
+
+}

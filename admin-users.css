@@ -1,0 +1,133 @@
+body{
+margin:0;
+font-family:'Segoe UI', Arial, sans-serif;
+background:#f4f6fb;
+}
+
+.admin{
+display:flex;
+min-height:100vh;
+}
+
+/* Sidebar */
+.sidebar{
+width:240px;
+background:linear-gradient(180deg,#0b1c3f,#1c3faa);
+color:white;
+padding:20px;
+}
+
+.sidebar h2{
+margin-bottom:30px;
+}
+
+.sidebar a{
+display:block;
+color:white;
+text-decoration:none;
+padding:12px 15px;
+margin-bottom:8px;
+border-radius:8px;
+transition:0.3s;
+}
+
+.sidebar a:hover{
+background:rgba(255,255,255,0.15);
+transform:translateX(5px);
+}
+
+/* Content */
+.content{
+flex:1;
+padding:30px;
+}
+
+.content h1{
+margin-bottom:20px;
+}
+
+/* User list table */
+#userList{
+background:white;
+border-radius:12px;
+box-shadow:0 4px 15px rgba(0,0,0,0.08);
+overflow:hidden;
+}
+
+/* Table */
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th{
+background:#1c3faa;
+color:white;
+padding:14px;
+text-align:left;
+font-weight:500;
+}
+
+td{
+padding:14px;
+border-bottom:1px solid #eee;
+}
+
+tr:hover{
+background:#f9f9f9;
+}
+
+/* Action buttons */
+button{
+padding:6px 10px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-size:12px;
+}
+
+.delete-btn{
+background:#ff4d4d;
+color:white;
+}
+
+.delete-btn:hover{
+background:#cc0000;
+}
+
+.view-btn{
+background:#1c3faa;
+color:white;
+}
+
+.view-btn:hover{
+background:#0b1c3f;
+}
+
+/* Mobile */
+@media(max-width:768px){
+.sidebar{
+width:180px;
+}
+
+.content{
+padding:20px;
+}
+
+table{
+font-size:13px;
+}
+}
+
+.form-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+max-width:600px;
+}
+
+.form-grid input{
+padding:10px;
+border:1px solid #ddd;
+border-radius:6px;
+}

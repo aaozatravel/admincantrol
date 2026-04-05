@@ -1,0 +1,70 @@
+body.admin-login{
+margin:0;
+padding:0;
+font-family:Segoe UI, Arial, sans-serif;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.login-box{
+background:white;
+padding:30px;
+width:320px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+text-align:center;
+}
+
+/* logo */
+.login-logo{
+width:80px;
+height:80px;
+object-fit:contain;
+margin-bottom:10px;
+}
+
+/* title */
+.login-box h2{
+margin-bottom:5px;
+color:#0b1c3f;
+}
+
+.login-box p{
+margin-bottom:20px;
+color:#777;
+}
+
+/* inputs */
+.login-box input{
+width:100%;
+padding:12px;
+margin-bottom:12px;
+border:1px solid #ddd;
+border-radius:8px;
+font-size:14px;
+}
+
+.login-box input:focus{
+outline:none;
+border-color:#1c3faa;
+}
+
+/* button */
+.login-box button{
+width:100%;
+padding:12px;
+background:#2c5364;
+color:white;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.login-box button:hover{
+background:#203a43;
+}
