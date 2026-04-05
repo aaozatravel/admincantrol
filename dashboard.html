@@ -14,6 +14,11 @@
 
 <div class="sidebar">
 <h2>Admin</h2>
+
+<button id="installAdminBtn" style="display:none;margin:10px 0;padding:8px;border:none;background:#0a84ff;color:#fff;border-radius:6px;">
+📲 Install Admin App
+</button>
+
 <a href="dashboard.html">Dashboard</a>
 <a href="tours.html">Tours</a>
 <a href="users.html">Users</a>
@@ -28,9 +33,7 @@
 <h1>Dashboard</h1>
 
 <div class="card">Total Users: <span id="totalUsers">0</span></div>
-
 <div class="card">Total Bookings: <span id="totalBookings">0</span></div>
-
 <div class="card">Total Profit: ₹ <span id="totalProfit">0</span></div>
 
 <div class="card clickable" onclick="filterBookings('assigned')">
@@ -50,7 +53,6 @@ Cancelled Bookings: <span id="cancelCount">0</span>
 </div>
 
 </div>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -102,7 +104,6 @@ acceptedCount.innerText = accepted
 waitingCount.innerText = waiting
 pendingCount.innerText = pending
 cancelCount.innerText = cancel
-
 }
 
 function filterBookings(status){
@@ -114,23 +115,25 @@ localStorage.removeItem("admin")
 window.location.href="login.html"
 }
 </script>
+
 <script>
-if ("serviceWorker" in navigator) {
-navigator.serviceWorker.register("service-worker.js");
+/* service worker */
+if ('serviceWorker' in navigator) {
+navigator.serviceWorker.register('service-worker.js');
 }
 
+/* install app */
 let deferredPrompt;
 
 window.addEventListener('beforeinstallprompt', (e) => {
 e.preventDefault();
 deferredPrompt = e;
+document.getElementById("installAdminBtn").style.display = "block";
+});
 
-setTimeout(()=>{
-if(deferredPrompt){
+document.getElementById("installAdminBtn").addEventListener("click", async () => {
+if (!deferredPrompt) return;
 deferredPrompt.prompt();
-}
-},1500);
-
 });
 </script>
 
