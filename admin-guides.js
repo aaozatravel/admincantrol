@@ -10,6 +10,7 @@ const idCardFile = document.getElementById("gidcard").files[0];
 
 const email = document.getElementById("gemail").value;
 const password = document.getElementById("gpassword").value;
+const tag = document.getElementById("gtag").value;
 
 let photoUrl = "";
 let idCardUrl = "";
@@ -72,6 +73,7 @@ photo: photoUrl,
 id_card: idCardUrl,
 email,
 password
+tag
 }]);
 
 if(error){
@@ -90,6 +92,7 @@ document.getElementById("gphoto").value="";
 document.getElementById("gidcard").value="";
 document.getElementById("gemail").value="";
 document.getElementById("gpassword").value="";
+document.getElementById("gtag").value="";
 
 }catch(err){
 console.log(err);
