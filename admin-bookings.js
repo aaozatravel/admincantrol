@@ -169,8 +169,6 @@ html += `
 
 <hr>
 
-<hr>
-
 <h3>Cab Details</h3>
 
 <div class="detail-row">
@@ -309,6 +307,7 @@ return
 }
 
 alert("Cab Assigned Successfully")
+closeModal()
 loadBookings()
 
 }
