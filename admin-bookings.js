@@ -389,3 +389,6 @@ function adminDownloadInvoice(id){
 localStorage.setItem("invoiceBookingId", id)
 window.open("invoice.html?download=true", "_blank")
 }
+
+/* LOAD ON PAGE OPEN */
+loadBookings()
