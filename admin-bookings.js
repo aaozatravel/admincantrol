@@ -37,7 +37,7 @@ return
 
 const guide = guides.find(g=>g.email===guideEmail)
 
-await supabaseClient
+const { error } = await supabaseClient
 .from("bookings")
 .update({
 status:"assigned",
@@ -49,6 +49,12 @@ guide_id_card: guide?.id_card || null
 })
 .eq("id", id)
 
+if(error){
+alert("Error assigning")
+return
+}
+
+alert("Accept successful ✅")
 loadBookings()
 }
 
@@ -131,34 +137,28 @@ let gondolaPrice = Number(parsed.gondola_price || 0)
 let activitiesTotal = (activities || [])
 .reduce((t,a)=> t + Number(a.price || 0),0)
 
-/* travellers */
 let html = "<h3>Traveller Details</h3>"
 
 travellers.forEach(p=>{
 html += `
-<div class="detail-row">
+<div>
 ${p.name} | ${p.gender} | Age: ${p.age} | ${p.phone}
 </div>
 `
 })
 
-/* places */
 let placesHtml = "-"
 let placesTotal = 0
 
 if(Array.isArray(places) && places.length){
 placesHtml=""
 places.forEach(p=>{
-
 let name = p.name || "-"
 let price = Number(p.price || 0)
 let total = Number(p.total || price)
-
 placesTotal += total
 
-placesHtml += `
-<div>${name} ₹${price} = ₹${total}</div>
-`
+placesHtml += `<div>${name} ₹${price} = ₹${total}</div>`
 })
 }
 
@@ -212,7 +212,6 @@ Double Room x ${doubleRoom} = ₹${doubleTotal}
 
 <h2>Grand Total: ₹${grandTotal}</h2>
 
-<br>
 <button onclick="downloadInvoice('${data.id}')">
 Download User Invoice
 </button>
@@ -243,7 +242,30 @@ Driver Photo URL:
 
 <button onclick="saveCabDetails()">Save Cab</button>
 
+<hr>
+
+<h3>Assign Hotel Day Wise</h3>
+
+<table style="width:100%">
+<tr>
+<th>Day</th>
+<th>Hotel</th>
+<th>Room</th>
+<th>Contact</th>
+</tr>
+
+<tr><td>Day1</td><td><input id="hotel1"></td><td><input id="room1"></td><td><input id="contact1"></td></tr>
+<tr><td>Day2</td><td><input id="hotel2"></td><td><input id="room2"></td><td><input id="contact2"></td></tr>
+<tr><td>Day3</td><td><input id="hotel3"></td><td><input id="room3"></td><td><input id="contact3"></td></tr>
+<tr><td>Day4</td><td><input id="hotel4"></td><td><input id="room4"></td><td><input id="contact4"></td></tr>
+<tr><td>Day5</td><td><input id="hotel5"></td><td><input id="room5"></td><td><input id="contact5"></td></tr>
+
+</table>
+
+<br>
+<button onclick="saveHotelDays()">Save Hotel</button>
 `
+
 document.getElementById("viewContent").innerHTML = html
 document.getElementById("viewModal").style.display = "flex"
 }
@@ -275,11 +297,11 @@ closeModal()
 async function saveHotelDays(){
 
 let hotelDays = [
-{day:"Day 1",hotel:document.getElementById("hotel1").value,room:document.getElementById("room1").value,contact:document.getElementById("contact1").value},
-{day:"Day 2",hotel:document.getElementById("hotel2").value,room:document.getElementById("room2").value,contact:document.getElementById("contact2").value},
-{day:"Day 3",hotel:document.getElementById("hotel3").value,room:document.getElementById("room3").value,contact:document.getElementById("contact3").value},
-{day:"Day 4",hotel:document.getElementById("hotel4").value,room:document.getElementById("room4").value,contact:document.getElementById("contact4").value},
-{day:"Day 5",hotel:document.getElementById("hotel5").value,room:document.getElementById("room5").value,contact:document.getElementById("contact5").value}
+{day:"Day1",hotel:hotel1.value,room:room1.value,contact:contact1.value},
+{day:"Day2",hotel:hotel2.value,room:room2.value,contact:contact2.value},
+{day:"Day3",hotel:hotel3.value,room:room3.value,contact:contact3.value},
+{day:"Day4",hotel:hotel4.value,room:room4.value,contact:contact4.value},
+{day:"Day5",hotel:hotel5.value,room:room5.value,contact:contact5.value}
 ]
 
 await supabaseClient
@@ -287,7 +309,7 @@ await supabaseClient
 .update({ hotel_days: hotelDays })
 .eq("id", currentBookingId)
 
-alert("Hotel Assigned")
+alert("Hotel Assigned Successfully")
 }
 
 /* CLOSE */
@@ -300,7 +322,7 @@ async function loadBookings(){
 
 await loadGuides()
 
-const { data, error } = await supabaseClient
+const { data } = await supabaseClient
 .from("bookings")
 .select("*")
 .order("created_at",{ascending:false})
@@ -310,16 +332,16 @@ let html = ""
 data.forEach(b=>{
 html += `
 <tr>
-<td>${b.tour_name || "-"}</td>
-<td>${b.user_email || "-"}</td>
-<td>${b.travel_month || "-"}</td>
+<td>${b.tour_name}</td>
+<td>${b.user_email}</td>
+<td>${b.travel_month}</td>
 <td>${b.status || "pending"}</td>
 
 <td>
 <select id="guide_${b.id}">
 ${guideOptions()}
 </select>
-<button onclick="acceptBooking('${b.id}')">Guide</button>
+<button onclick="acceptBooking('${b.id}')">Accept</button>
 </td>
 
 <td>
