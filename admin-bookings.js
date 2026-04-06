@@ -120,6 +120,12 @@ ${p.name} | ${p.gender} | Age: ${p.age} | ${p.phone}
 
 /* places html */
 let placesHtml = "-"
+let placesTotal = 0
+let departurePrice = Number(parsed.departure_price || 0)
+let gondolaPrice = Number(parsed.gondola_price || 0)
+let activitiesTotal = (parsed.activities || [])
+.reduce((t,a)=> t + Number(a.price || 0),0)
+
 if(Array.isArray(places) && places.length){
 placesHtml=""
 places.forEach(p=>{
@@ -127,10 +133,12 @@ places.forEach(p=>{
 let name = p.name || p.place || "-"
 let price = Number(p.price || p.cost || 0)
 let travellersCount = Number(p.travellers || 1)
-let total = p.total || (price * travellersCount)
+let total = Number(p.total || price)
+
+placesTotal += total
 
 placesHtml += `
-<div>${name} ₹${price} x ${travellersCount} = ₹${total}</div>
+<div>${name} ₹${price} = ₹${total}</div>
 `
 })
 }
@@ -141,7 +149,10 @@ html += `
 <div class="detail-row"><b>Email:</b> ${data.user_email}</div>
 <div class="detail-row"><b>Tour:</b> ${data.tour_name}</div>
 <div class="detail-row"><b>Month:</b> ${data.travel_month}</div>
-<div class="detail-row"><b>Departure:</b> ${parsed.departure || "-"}</div>
+<div class="detail-row">
+<b>Departure:</b> ${parsed.departure || "-"} 
+(₹${parsed.departure_price || 0})
+</div>
 
 <div class="detail-row">
 <b>Activities:</b> ${(parsed.activities || []).map(a => a.name).join(", ") || "-"}
@@ -160,11 +171,11 @@ html += `
 </div>
 
 <div class="detail-row">
-<b>Places Price:</b> ₹${parsed.places_total || 0}
+<b>Places Price:</b> ₹${placesTotal}
 </div>
 
 <div class="detail-row">
-<b>Total:</b> ₹${parsed.total || 0}
+<b>Total:</b> ₹${placesTotal + departurePrice + gondolaPrice + activitiesTotal}
 </div>
 
 <hr>
