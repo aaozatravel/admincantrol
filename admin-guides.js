@@ -12,6 +12,11 @@ const email = document.getElementById("gemail").value;
 const password = document.getElementById("gpassword").value;
 const tag = document.getElementById("gtag").value;
 
+if(!name || !phone || !email || !password){
+alert("Fill all required fields")
+return
+}
+
 let photoUrl = "";
 let idCardUrl = "";
 
@@ -72,7 +77,7 @@ gender,
 photo: photoUrl,
 id_card: idCardUrl,
 email,
-password
+password,
 tag
 }]);
 
