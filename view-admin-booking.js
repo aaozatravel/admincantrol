@@ -257,7 +257,11 @@ if(!confirm("Confirm this booking?")) return
 document.getElementById("confirmBtn").innerText = "Saving..."
 document.getElementById("confirmBtn").disabled = true
 
+let guideEmail = document.getElementById("guideSelect").value
+
 let updateData = {
+
+guide_email: guideEmail,   // ⭐ ye line add
 
 admin_details: {
 
@@ -269,7 +273,7 @@ driver_name: document.getElementById("driver_name").value,
 driver_phone: document.getElementById("driver_phone").value,
 driver_photo: document.getElementById("driver_photo").value,
 
-guide: document.getElementById("guideSelect").value,
+guide: guideEmail,
 
 hotel1: document.getElementById("hotel1").value,
 hotel1_photo: document.getElementById("hotel1_photo").value,
@@ -303,8 +307,7 @@ hotel5_room: document.getElementById("hotel5_room").value
 
 },
 
-status: "accepted"
-
+status: "assigned"   // ⭐ ye bhi change
 }
 
 const { error } = await supabaseClient
@@ -322,4 +325,4 @@ return
 alert("Booking Accepted Successfully")
 window.location.href = "admin-bookings.html"
 
-                                     }
+}
