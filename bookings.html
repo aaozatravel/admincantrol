@@ -4,128 +4,30 @@
 <title>Bookings</title>
 <link rel="stylesheet" href="admin-bookings.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-
-.modal{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.6);
-justify-content:center;
-align-items:center;
-z-index:999;
-}
-
-.modal-box{
-background:white;
-padding:20px;
-width:95%;
-max-width:600px;
-border-radius:8px;
-max-height:90vh;
-overflow:auto;
-}
-
-.detail-row{
-padding:6px 0;
-border-bottom:1px solid #eee;
-font-size:14px;
-}
-
-.modal-box button{
-margin-top:15px;
-padding:8px 12px;
-background:#1c3faa;
-color:white;
-border:none;
-cursor:pointer;
-border-radius:4px;
-}
-
-.filter-bar{
-margin-bottom:10px;
-padding:10px;
-background:#f5f5f5;
-border-radius:6px;
-font-size:14px;
-}
-
-.clear-filter{
-margin-left:10px;
-padding:4px 8px;
-background:red;
-color:white;
-border:none;
-border-radius:4px;
-cursor:pointer;
-}
-
-</style>
 </head>
 
-<body onload="checkAdmin();">
+<body>
 
-<div class="admin">
+<h2>Bookings</h2>
 
-<div class="sidebar">
-<h2>Admin</h2>
-<a href="dashboard.html">Dashboard</a>
-<a href="tours.html">Tours</a>
-<a href="users.html">Users</a>
-<a href="bookings.html">Bookings</a>
-<a href="settings.html">Settings</a>
-<a onclick="logoutAdmin()">Logout</a>
-</div>
-
-<div class="content">
-
-<h1>Bookings</h1>
-
-<div id="filterInfo" class="filter-bar" style="display:none"></div>
-
-<table class="table">
+<table border="1" width="100%">
 <thead>
 <tr>
-<th>Tour</th>
+<th>Booking</th>
 <th>User</th>
-<th>Month</th>
+<th>Grand Total</th>
 <th>Status</th>
-<th>Guide</th>
-<th>Action</th>
-<th>View</th>
+<th>Actions</th>
 </tr>
 </thead>
+
 <tbody id="bookingTable"></tbody>
+
 </table>
-
-</div>
-</div>
-
-<!-- VIEW MODAL -->
-<div id="viewModal" class="modal">
-<div class="modal-box">
-<h2>Booking Details</h2>
-<div id="viewContent"></div>
-<button onclick="closeModal()">Close</button>
-</div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
-<script src="admin-auth.js"></script>
 <script src="admin-bookings.js"></script>
-
-<script>
-
-document.addEventListener("DOMContentLoaded", function(){
-loadBookings();
-})
-
-</script>
 
 </body>
 </html>
