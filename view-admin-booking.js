@@ -259,6 +259,8 @@ document.getElementById("confirmBtn").disabled = true
 
 let updateData = {
 
+admin_details: {
+
 cab_name: document.getElementById("cab_name").value,
 cab_number: document.getElementById("cab_number").value,
 cab_photo: document.getElementById("cab_photo").value,
@@ -297,7 +299,9 @@ hotel5: document.getElementById("hotel5").value,
 hotel5_photo: document.getElementById("hotel5_photo").value,
 hotel5_address: document.getElementById("hotel5_address").value,
 hotel5_contact: document.getElementById("hotel5_contact").value,
-hotel5_room: document.getElementById("hotel5_room").value,
+hotel5_room: document.getElementById("hotel5_room").value
+
+},
 
 status: "accepted"
 
@@ -318,4 +322,4 @@ return
 alert("Booking Accepted Successfully")
 window.location.href = "admin-bookings.html"
 
-}
+                                     }
