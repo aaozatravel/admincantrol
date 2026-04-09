@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Upload Tour</title>
+<link rel="stylesheet" href="upload-tour.css">
+</head>
+<body>
+
+<h2>Create / Edit Tour</h2>
+
+<input id="title" placeholder="Tour Title">
+<input id="days" placeholder="4 Nights / 5 Days">
+<input id="price" placeholder="Base Price">
+
+<label>Hero Image</label>
+<input type="file" id="heroImage">
+
+<h3>Activities</h3>
+<div id="activities"></div>
+<button onclick="addActivity()">+ Add Activity</button>
+
+<h3>Places (with image)</h3>
+<div id="places"></div>
+<button onclick="addPlace()">+ Add Place</button>
+
+<h3>Gondola Options</h3>
+<div id="gondola"></div>
+<button onclick="addGondola()">+ Add Gondola</button>
+
+<h3>Departure Cards</h3>
+<div id="departures"></div>
+<button onclick="addDeparture()">+ Add Departure</button>
+
+<br><br>
+<button onclick="saveTour()">Save Tour</button>
+
+<hr>
+
+<h2>All Tours</h2>
+<div id="tourList"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="upload-tour.js"></script>
+
+</body>
+</html>
