@@ -20,7 +20,7 @@ let travellers = parsed.travellers || []
 let gondolaPrice = Number(parsed.gondola_price || 0)
 let gondolaName = parsed.gondola_name || "Gondola Ticket"
 
-let placesTotal = places.reduce((t,p)=> t + Number(p.price || p.total || 0),0)
+let placesTotal = places.reduce((t,p)=> t + Number(p.price || 0),0)
 let activitiesTotal = activities.reduce((t,a)=> t + Number(a.price || 0),0)
 
 let departurePrice = Number(parsed.departure_price || 0)
@@ -28,7 +28,10 @@ let departurePrice = Number(parsed.departure_price || 0)
 // add gondola
 activitiesTotal = activitiesTotal + gondolaPrice
 
-let subtotal = placesTotal + activitiesTotal + departurePrice
+let baseTotalPerPerson =
+  placesTotal + activitiesTotal + departurePrice
+
+let subtotal = baseTotalPerPerson
 
 let travellerCount = travellers.length
 
@@ -42,55 +45,39 @@ let grandTotal = (subtotal * travellerCount) + roomTotal
 
 let html = `
 
-<div class="box">
-<b>Activities</b><br>
-${activities.map(a=>`${a.name} - ₹${a.price}`).join("<br>")}
-${gondolaPrice ? `<br>${gondolaName} - ₹${gondolaPrice}` : ""}
-<br><b>Total: ₹${activitiesTotal}</b>
-</div>
-
-<div class="box">
-<b>Places</b><br>
-${places.map(p=>`${p.name} - ₹${p.price || p.total}`).join("<br>")}
-<br><b>Total: ₹${placesTotal}</b>
-</div>
-
-<div class="box">
-<b>Departure</b><br>
-₹${departurePrice}<br>
-Start: ${parsed.start_date || "-"}<br>
-End: ${parsed.end_date || "-"}
-</div>
-
-<div class="box">
-<b>Subtotal (Per Traveller)</b><br>
-₹${subtotal}
-</div>
-
-<div class="box">
-<b>Travellers</b><br>
-${travellers.map(t=>`
-${t.name} | ${t.age} | ${t.gender} | ${t.phone}
-= ₹${subtotal}
-`).join("<br><br>")}
-</div>
-
-<div class="box">
-<b>Rooms</b><br>
-Single (${singleRoom}) = ₹${singleRoom * 6999}<br>
-Double (${doubleRoom}) = ₹${doubleRoom * 8999}<br>
-Room Total = ₹${roomTotal}
-</div>
-
-<div class="box">
-<b>Grand Total</b><br>
-₹${grandTotal}
-</div>
-
-<div class="box">
-<h3>Cab Detail</h3>
-
-Cab Name<br>
+<div class="box">  
+<b>Activities</b><br>  
+${activities.map(a=>`${a.name} - ₹${a.price}`).join("<br>")}  
+${gondolaPrice ? `<br>${gondolaName} - ₹${gondolaPrice}` : ""}  
+<br><b>Total: ₹${activitiesTotal}</b>  
+</div>  <div class="box">  
+<b>Places</b><br>  
+${places.map(p=>`${p.name} - ₹${p.price || p.total}`).join("<br>")}  
+<br><b>Total: ₹${placesTotal}</b>  
+</div>  <div class="box">  
+<b>Departure</b><br>  
+₹${departurePrice}<br>  
+Start: ${parsed.start_date || "-"}<br>  
+End: ${parsed.end_date || "-"}  
+</div>  <div class="box">  
+<b>Subtotal (Per Traveller)</b><br>  
+₹${subtotal}  
+</div>  <div class="box">  
+<b>Travellers</b><br>  
+${travellers.map(t=>`  
+${t.name} | ${t.age} | ${t.gender} | ${t.phone}  
+= ₹${baseTotalPerPerson}
+`).join("<br><br>")}  
+</div>  <div class="box">  
+<b>Rooms</b><br>  
+Single (${singleRoom}) = ₹${singleRoom * 6999}<br>  
+Double (${doubleRoom}) = ₹${doubleRoom * 8999}<br>  
+Room Total = ₹${roomTotal}  
+</div>  <div class="box">  
+<b>Grand Total</b><br>  
+₹${grandTotal}  
+</div>  <div class="box">  
+<h3>Cab Detail</h3>  Cab Name<br>
 <input id="cab_name" placeholder="Cab Name"><br>
 
 Cab Number<br>
@@ -110,17 +97,11 @@ Driver Photo URL<br>
 <input id="driver_photo" placeholder="Driver Photo URL"><br>
 <img id="driver_preview" style="width:200px;display:none;margin-top:5px">
 
-</div>
-
-<div class="box">
-<h3>Guide</h3>
-<select id="guideSelect"></select>
-</div>
-
-<div class="box">
-<h3>Hotel Day Wise</h3>
-
-<b>Day 1</b><br>
+</div>  <div class="box">  
+<h3>Guide</h3>  
+<select id="guideSelect"></select>  
+</div>  <div class="box">  
+<h3>Hotel Day Wise</h3>  <b>Day 1</b><br>
 Hotel Photo<br>
 <input id="hotel1_photo" placeholder="Photo URL"><br>
 <img id="hotel1_preview" style="width:200px;display:none"><br>
@@ -185,15 +166,13 @@ Hotel Contact<br>
 Room Number<br>
 <input id="hotel5_room" placeholder="Room Number"><br>
 
-</div>
-<div class="box">
-<button id="confirmBtn" onclick="confirmBooking()" 
-style="background:green;color:white;padding:12px;border:none;width:100%">
-Confirm Booking
-</button>
-</div>
-
-`
+</div>  
+<div class="box">  
+<button id="confirmBtn" onclick="confirmBooking()"   
+style="background:green;color:white;padding:12px;border:none;width:100%">  
+Confirm Booking  
+</button>  
+</div>  `
 
 document.getElementById("bookingDetail").innerHTML = html
 
@@ -212,10 +191,9 @@ let html = "<option value=''>Select Guide</option>"
 data.forEach(g=>{
 html += `<option value="${g.email}">
 ${g.name} (${g.phone})
-</option>`
-})
 
-document.getElementById("guideSelect").innerHTML = html
+</option>`  
+})  document.getElementById("guideSelect").innerHTML = html
 }
 
 function setupImagePreview(){
@@ -237,10 +215,10 @@ document.getElementById("driver_preview").style.display="block"
 // HOTEL IMAGE PREVIEW
 for(let i=1;i<=5;i++){
 
-let photo = document.getElementById(`hotel${i}_photo`)
+let photo = document.getElementById(hotel${i}_photo)
 if(photo){
 photo.addEventListener("input", function(){
-let img = document.getElementById(`hotel${i}_preview`)
+let img = document.getElementById(hotel${i}_preview)
 img.src = this.value
 img.style.display="block"
 })
