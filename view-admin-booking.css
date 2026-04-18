@@ -1,74 +1,80 @@
+/* 🌍 BODY */
 body{
-font-family: Arial, sans-serif;
-background:#f5f7fb;
-margin:0;
-padding:15px;
+  font-family:Arial;
+  background:#ffffff;
+  color:#111;
+  padding:15px;
 }
 
-.box{
-background:#fff;
-padding:15px;
-margin-bottom:15px;
-border-radius:8px;
-box-shadow:0 2px 6px rgba(0,0,0,0.08);
+/* 📦 BOOKING BOX */
+#bookingBox{
+  background:#fff;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:20px;
+  border:2px solid #ef4444;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
 }
 
-.box b{
-font-size:16px;
-color:#333;
+/* 👤 TRAVELLER */
+.traveller{
+  background:#fff5f5;
+  padding:10px;
+  border-radius:10px;
+  margin-bottom:8px;
+  border:1px solid #fca5a5;
 }
 
-.box h3{
-margin-top:0;
-color:#0a58ca;
+/* INPUT + SELECT */
+input,select{
+  width:100%;
+  padding:10px;
+  margin-bottom:10px;
+  border-radius:8px;
+  border:1px solid #f87171;
+  background:#fff;
+  color:#111;
 }
 
-input, select{
-width:100%;
-padding:10px;
-margin-top:5px;
-margin-bottom:10px;
-border:1px solid #ddd;
-border-radius:6px;
-font-size:14px;
-box-sizing:border-box;
+/* INPUT FOCUS */
+input:focus,select:focus{
+  outline:none;
+  border-color:#dc2626;
+  box-shadow:0 0 5px rgba(220,38,38,0.4);
 }
 
-input:focus, select:focus{
-outline:none;
-border-color:#0a58ca;
-}
-
-img{
-border-radius:6px;
-margin-top:5px;
-max-width:100%;
-}
-
+/* 🔘 BUTTON */
 button{
-cursor:pointer;
-border-radius:6px;
-font-size:15px;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:10px;
+  background:#ef4444;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
 }
 
 button:hover{
-opacity:0.9;
+  background:#dc2626;
 }
 
-#confirmBtn{
-font-weight:bold;
-letter-spacing:0.5px;
+/* 🏨 HOTEL ROW */
+.hotel-row{
+  background:#fff;
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:10px;
+  border:1px solid #fca5a5;
 }
 
-@media (min-width:768px){
-
-body{
-max-width:900px;
-margin:auto;
+/* HOTEL INPUT */
+.hotel-row input{
+  margin-bottom:6px;
 }
 
-.box{
-padding:20px;
-}
-
+/* 🔴 HEADINGS */
+h2, h3, h4{
+  color:#dc2626;
 }
