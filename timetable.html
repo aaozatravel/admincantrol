@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin Timetable Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body{
+font-family: Arial;
+margin:0;
+background:#f4f6fb;
+padding:10px;
+}
+
+/* HEADER */
+h2{
+text-align:center;
+color:#1c3faa;
+}
+
+/* BOX */
+.box{
+background:white;
+padding:15px;
+border-radius:12px;
+margin-bottom:15px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* INPUT */
+input, textarea, select{
+width:100%;
+padding:10px;
+margin:6px 0;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+/* MULTI SELECT */
+select{
+height:100px;
+}
+
+/* BUTTON */
+button{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:10px;
+background:#1c3faa;
+color:white;
+font-size:15px;
+}
+
+.add-btn{
+background:#28a745;
+}
+
+.delete-btn{
+background:red;
+}
+
+/* DAY BOX */
+.day-box{
+background:#eef2ff;
+padding:10px;
+border-radius:10px;
+margin-top:10px;
+}
+
+/* HOTEL BOX */
+.hotel-row{
+background:#fff3cd;
+padding:10px;
+border-radius:10px;
+margin-top:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>📅 Admin Timetable Panel</h2>
+
+<div id="bookingInfo" class="box"></div>
+
+<!-- GUIDE + CAB -->
+<div class="box">
+<h3>👨‍✈️ Guide & Transport</h3>
+
+<select id="guideSelect"></select>
+
+<input id="cabName" placeholder="Cab Name">
+<input id="cabNumber" placeholder="Cab Number">
+<input id="cabPhoto" placeholder="Cab Photo URL">
+
+<input id="driverName" placeholder="Driver Name">
+<input id="driverPhone" placeholder="Driver Phone">
+<input id="driverPhoto" placeholder="Driver Photo URL">
+</div>
+
+<!-- MULTI SELECT -->
+<div class="box">
+<h3>📍 Trip Setup</h3>
+
+<label>Places</label>
+<select id="placesSelect" multiple>
+<option>Srinagar</option>
+<option>Gulmarg</option>
+<option>Sonmarg</option>
+<option>Pahalgam</option>
+</select>
+
+<label>Activities</label>
+<select id="activitiesSelect" multiple>
+<option>Horse Riding</option>
+<option>Skiing</option>
+<option>Gondola Ride</option>
+<option>Shikara Ride</option>
+</select>
+
+<label>Services</label>
+<select id="servicesSelect" multiple>
+<option>Hotel</option>
+<option>Cab</option>
+<option>Guide</option>
+<option>Meals</option>
+</select>
+
+<label>Media</label>
+<select id="mediaSelect" multiple>
+<option>Photography</option>
+<option>Videography</option>
+</select>
+</div>
+
+<!-- HOTELS -->
+<div class="box">
+<h3>🏨 Hotels</h3>
+<div id="hotelContainer"></div>
+<button class="add-btn" onclick="addHotel()">+ Add Hotel</button>
+</div>
+
+<!-- TIMETABLE -->
+<div class="box">
+<h3>📅 Timetable</h3>
+<div id="daysContainer"></div>
+<button class="add-btn" onclick="addDay()">+ Add Day</button>
+</div>
+
+<button onclick="saveAll()">💾 Save Full Details</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<script>
+
+// 🔥 GET BOOKING ID
+const urlParams = new URLSearchParams(window.location.search)
+const bookingId = urlParams.get("id")
+
+// 🔥 LOAD DATA
+async function loadData(){
+
+const { data } = await supabaseClient
+.from("bookings")
+.select("*")
+.eq("id", bookingId)
+.single()
+
+document.getElementById("bookingInfo").innerHTML = `
+<h3>${data.package_name}</h3>
+<p>Total ₹${data.total_price}</p>
+`
+
+// 🔥 LOAD GUIDES
+const { data: guides } = await supabaseClient.from("guides").select("*")
+
+let ghtml = `<option value="">Select Guide</option>`
+guides.forEach(g=>{
+ghtml += `<option value="${g.id}">${g.name} (${g.phone})</option>`
+})
+guideSelect.innerHTML = ghtml
+
+// 🔥 LOAD EXTRA
+let extra = {}
+try{ extra = JSON.parse(data.extra_details || "{}") }catch(e){}
+
+// PREFILL
+guideSelect.value = extra.guideId || ""
+cabName.value = extra.cabName || ""
+cabNumber.value = extra.cabNumber || ""
+cabPhoto.value = extra.cabPhoto || ""
+
+driverName.value = extra.driverName || ""
+driverPhone.value = extra.driverPhone || ""
+driverPhoto.value = extra.driverPhoto || ""
+
+// MULTI SELECT SET
+setMulti("placesSelect", extra.places)
+setMulti("activitiesSelect", extra.activities)
+setMulti("servicesSelect", extra.services)
+setMulti("mediaSelect", extra.media)
+
+// HOTELS
+if(extra.hotels){
+extra.hotels.forEach(h=>addHotel(h))
+}
+
+// TIMETABLE
+if(extra.timetable){
+extra.timetable.forEach(d=>addDay(d))
+}
+
+}
+
+// 🔥 MULTI SELECT SET
+function setMulti(id, arr=[]){
+let select = document.getElementById(id)
+for(let opt of select.options){
+opt.selected = arr?.includes(opt.value)
+}
+}
+
+// 🔥 GET MULTI SELECT
+function getMulti(id){
+return [...document.getElementById(id).selectedOptions].map(o=>o.value)
+}
+
+// 🔥 ADD HOTEL
+function addHotel(data={}){
+
+hotelContainer.innerHTML += `
+<div class="hotel-row">
+
+<input placeholder="Day" value="${data.day || ""}">
+<input placeholder="Hotel Name" value="${data.name || ""}">
+<input placeholder="Address" value="${data.address || ""}">
+<input placeholder="Room" value="${data.room || ""}">
+<input placeholder="Phone" value="${data.phone || ""}">
+<input placeholder="Photo" value="${data.photo || ""}">
+
+<button class="delete-btn" onclick="this.parentElement.remove()">❌</button>
+
+</div>
+`
+}
+
+// 🔥 ADD DAY
+function addDay(data={}){
+
+daysContainer.innerHTML += `
+<div class="day-box">
+
+<input placeholder="Day" value="${data.day || ""}">
+<input placeholder="Title" value="${data.title || ""}">
+<input placeholder="Time" value="${data.time || ""}">
+
+<textarea placeholder="Tasks comma separated">
+${(data.tasks || []).join(",")}
+</textarea>
+
+<button class="delete-btn" onclick="this.parentElement.remove()">❌</button>
+
+</div>
+`
+}
+
+// 🔥 SAVE ALL
+async function saveAll(){
+
+let hotels = []
+document.querySelectorAll(".hotel-row").forEach(row=>{
+let i = row.querySelectorAll("input")
+hotels.push({
+day:i[0].value,
+name:i[1].value,
+address:i[2].value,
+room:i[3].value,
+phone:i[4].value,
+photo:i[5].value
+})
+})
+
+let timetable = []
+document.querySelectorAll(".day-box").forEach(box=>{
+let i = box.querySelectorAll("input,textarea")
+timetable.push({
+day:i[0].value,
+title:i[1].value,
+time:i[2].value,
+tasks:i[3].value.split(",")
+})
+})
+
+// 🔥 FINAL OBJECT
+let extra = {
+guideId: guideSelect.value,
+
+cabName: cabName.value,
+cabNumber: cabNumber.value,
+cabPhoto: cabPhoto.value,
+
+driverName: driverName.value,
+driverPhone: driverPhone.value,
+driverPhoto: driverPhoto.value,
+
+places: getMulti("placesSelect"),
+activities: getMulti("activitiesSelect"),
+services: getMulti("servicesSelect"),
+media: getMulti("mediaSelect"),
+
+hotels,
+timetable
+}
+
+// SAVE
+await supabaseClient
+.from("bookings")
+.update({ extra_details: JSON.stringify(extra) })
+.eq("id", bookingId)
+
+alert("Saved Successfully ✅")
+}
+
+loadData()
+
+</script>
+
+</body>
+</html>
