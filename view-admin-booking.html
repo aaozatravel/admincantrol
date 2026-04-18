@@ -1,22 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Booking Detail</title>
+<title>Booking Details</title>
 <link rel="stylesheet" href="view-admin-booking.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{font-family:Arial;padding:15px}
-.box{border:1px solid #ddd;padding:10px;margin-bottom:10px}
-</style>
 </head>
 
 <body>
 
-<h2>AAOZ Travels Kashmir</h2>
-<h3>Booking Details</h3>
+<h2>📋 Booking Details</h2>
 
-<div id="bookingDetail"></div>
+<div id="bookingBox"></div>
+
+<!-- GUIDE -->
+<h3>👨‍✈️ Select Guide</h3>
+<select id="guideSelect"></select>
+
+<!-- CAB -->
+<h3>🚗 Cab Details</h3>
+<input id="cabName" placeholder="Cab Name">
+<input id="cabNumber" placeholder="Cab Number">
+<input id="cabPhoto" placeholder="Cab Photo URL">
+
+<!-- DRIVER -->
+<h3>🧑 Driver Details</h3>
+<input id="driverName" placeholder="Driver Name">
+<input id="driverPhone" placeholder="Driver Phone">
+<input id="driverPhoto" placeholder="Driver Photo URL">
+
+<!-- HOTELS -->
+<h3>🏨 Hotels (Day Wise)</h3>
+<div id="hotelContainer"></div>
+
+<button onclick="addHotel()">+ Add Day</button>
+
+<button onclick="saveExtraDetails()">Save Details</button>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
