@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Bookings</title>
+<title>Admin Bookings</title>
 <link rel="stylesheet" href="admin-bookings.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
 
-<h2>Bookings</h2>
+<h2 class="title">📋 All Bookings</h2>
 
-<table border="1" width="100%">
+<table>
 <thead>
 <tr>
-<th>Booking</th>
+<th>#</th>
 <th>User</th>
-<th>Grand Total</th>
+<th>Package</th>
+<th>Total</th>
 <th>Status</th>
 <th>Actions</th>
 </tr>
 </thead>
 
 <tbody id="bookingTable"></tbody>
-
 </table>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
