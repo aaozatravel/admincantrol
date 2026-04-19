@@ -173,30 +173,40 @@ photo: inputs[5].value
 })
 
 // 🔹 FINAL EXTRA OBJECT
-let extra = {
+// 🔹 GET OLD DATA FIRST
+const { data } = await supabaseClient
+.from("bookings")
+.select("extra_details")
+.eq("id", bookingId)
+.single()
 
-guideId: guideSelect.value,
+let extra = {}
 
-cabName: cabName.value,
-cabNumber: cabNumber.value,
-cabPhoto: cabPhoto.value,
+try{
+extra = JSON.parse(data.extra_details || "{}")
+}catch(e){}
 
-driverName: driverName.value,
-driverPhone: driverPhone.value,
-driverPhoto: driverPhoto.value,
+// 🔥 UPDATE ONLY FIELDS
+extra.guideId = guideSelect.value || extra.guideId
 
-hotels,
+extra.cabName = cabName.value
+extra.cabNumber = cabNumber.value
+extra.cabPhoto = cabPhoto.value
 
-// NEW 🔥
-places: getMultiValues("placesSelect"),
-activities: getMultiValues("activitiesSelect"),
-services: getMultiValues("servicesSelect"),
-media: getMultiValues("mediaSelect"),
+extra.driverName = driverName.value
+extra.driverPhone = driverPhone.value
+extra.driverPhoto = driverPhoto.value
 
-timetable: days
-}
+extra.hotels = hotels
 
-// SAVE
+extra.places = getMultiValues("placesSelect")
+extra.activities = getMultiValues("activitiesSelect")
+extra.services = getMultiValues("servicesSelect")
+extra.media = getMultiValues("mediaSelect")
+
+extra.timetable = days
+
+// 🔥 SAVE
 await supabaseClient
 .from("bookings")
 .update({
