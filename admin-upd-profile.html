@@ -95,50 +95,59 @@ button{
 
 <script>
 
-// ================= LOAD =================
+// ================= LOAD REQUESTS =================
 async function loadRequests(){
 
-const { data } = await supabaseClient
+const { data, error } = await supabaseClient
 .from("profile_requests")
 .select("*")
-.eq("status","pending")
 
-document.getElementById("list").innerHTML = ""
+if(error){
+  console.log(error)
+  return
+}
+
+const list = document.getElementById("list")
+list.innerHTML = ""
+
+if(!data || data.length === 0){
+  list.innerHTML = "<p>No requests found</p>"
+  return
+}
 
 for(let req of data){
 
-  let { data: user } = await supabaseClient
+  const { data: user } = await supabaseClient
   .from("users")
   .select("*")
   .eq("email", req.user_email)
-  .single()
+  .maybeSingle()
 
-  let html = `
+  if(!user) continue
+
+  list.innerHTML += `
   <div class="card">
 
     <img src="${user.image || 'user.png'}">
 
     <div>
 
-      <h3>${user.name}</h3>
-      <p>📧 ${user.email}</p>
-      <p>📞 ${user.phone}</p>
+      <h3>${user.name || ''}</h3>
+      <p>📧 ${user.email || ''}</p>
+      <p>📞 ${user.phone || ''}</p>
 
       <hr>
 
-      <input id="name-${req.id}" value="${user.name}">
-      <input id="email-${req.id}" value="${user.email}">
-      <input id="phone-${req.id}" value="${user.phone}">
+      <input id="name-${req.id}" value="${user.name || ''}">
+      <input id="email-${req.id}" value="${user.email || ''}">
+      <input id="phone-${req.id}" value="${user.phone || ''}">
 
       <div class="btns">
 
         <button class="update" onclick="updateUser('${req.id}','${user.id}')">Update</button>
-
         <button class="approve" onclick="approve('${req.id}')">✔ Approve</button>
-
         <button class="reject" onclick="reject('${req.id}')">✖ Reject</button>
-
-        <button class="remove" onclick="removeRequest('${req.id}')">🗑 Remove Request</button>
+        <button class="remove" onclick="removeRequest('${req.id}')">🗑 Remove</button>
 
       </div>
 
@@ -146,27 +155,24 @@ for(let req of data){
 
   </div>
   `
-  document.getElementById("list").innerHTML += html
 }
-
 }
 
 loadRequests()
 
-// ================= UPDATE USER (FIXED SAFE) =================
+// ================= UPDATE USER (SAFE) =================
 async function updateUser(reqId, userId){
 
 const name = document.getElementById("name-"+reqId).value
 const email = document.getElementById("email-"+reqId).value
 const phone = document.getElementById("phone-"+reqId).value
 
-// ⚠️ SAFE UPDATE (NO DATA LOSS)
 const { error } = await supabaseClient
 .from("users")
 .update({
-  name: name,
-  email: email,
-  phone: phone
+  name,
+  email,
+  phone
 })
 .eq("id", userId)
 
@@ -201,8 +207,8 @@ async function approve(id){
 
 await supabaseClient
 .from("profile_requests")
-.update({status:"approved"})
-.eq("id",id)
+.update({ status:"approved" })
+.eq("id", id)
 
 showToast("Approved ✔")
 loadRequests()
@@ -214,7 +220,7 @@ async function reject(id){
 await supabaseClient
 .from("profile_requests")
 .delete()
-.eq("id",id)
+.eq("id", id)
 
 showToast("Rejected ✖")
 loadRequests()
