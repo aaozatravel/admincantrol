@@ -26,6 +26,7 @@
 <a href="settings.html">Settings</a>
 <a href="guides.html">Guides</a>
 <a href="guides-list.html">Guides list</a>
+<a href="admin-notification.html">🔔 Send Notification</a>
 <a onclick="logoutAdmin()">Logout</a>
 </div>
 
@@ -35,6 +36,10 @@
 <div class="card">Total Users: <span id="totalUsers">0</span></div>
 <div class="card">Total Bookings: <span id="totalBookings">0</span></div>
 <div class="card">Total Profit: ₹ <span id="totalProfit">0</span></div>
+
+<div class="card clickable" onclick="window.location.href='admin-notification.html'">
+  🔔 Send Notification to Users
+</div>
 
 <div class="card clickable" onclick="filterBookings('assigned')">
 Accepted Bookings: <span id="acceptedCount">0</span>
