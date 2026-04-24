@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - Profile Requests</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0f172a;
+  color:white;
+}
+
+#toast{
+  position:fixed;
+  top:-100px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#111;
+  padding:12px 20px;
+  border-radius:10px;
+  transition:0.4s;
+  z-index:9999;
+}
+#toast.show{ top:20px; }
+
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:20px;
+}
+
+.card{
+  background:#1e293b;
+  padding:20px;
+  border-radius:15px;
+  margin-bottom:15px;
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:15px;
+  align-items:center;
+}
+
+.card img{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+input{
+  width:100%;
+  padding:10px;
+  margin:5px 0;
+  border-radius:8px;
+  border:none;
+  outline:none;
+}
+
+.btns{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+button{
+  padding:9px 12px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.update{ background:#3b82f6; color:white; }
+.approve{ background:#22c55e; color:white; }
+.reject{ background:#ef4444; color:white; }
+.remove{ background:#f97316; color:white; }
+</style>
+</head>
+
+<body>
+
+<div id="toast"></div>
+
+<div class="container">
+<h2>📩 Profile Requests</h2>
+<div id="list"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<script>
+
+// ================= LOAD =================
+async function loadRequests(){
+
+const { data } = await supabaseClient
+.from("profile_requests")
+.select("*")
+.eq("status","pending")
+
+document.getElementById("list").innerHTML = ""
+
+for(let req of data){
+
+  let { data: user } = await supabaseClient
+  .from("users")
+  .select("*")
+  .eq("email", req.user_email)
+  .single()
+
+  let html = `
+  <div class="card">
+
+    <img src="${user.image || 'user.png'}">
+
+    <div>
+
+      <h3>${user.name}</h3>
+      <p>📧 ${user.email}</p>
+      <p>📞 ${user.phone}</p>
+
+      <hr>
+
+      <input id="name-${req.id}" value="${user.name}">
+      <input id="email-${req.id}" value="${user.email}">
+      <input id="phone-${req.id}" value="${user.phone}">
+
+      <div class="btns">
+
+        <button class="update" onclick="updateUser('${req.id}','${user.id}')">Update</button>
+
+        <button class="approve" onclick="approve('${req.id}')">✔ Approve</button>
+
+        <button class="reject" onclick="reject('${req.id}')">✖ Reject</button>
+
+        <button class="remove" onclick="removeRequest('${req.id}')">🗑 Remove Request</button>
+
+      </div>
+
+    </div>
+
+  </div>
+  `
+  document.getElementById("list").innerHTML += html
+}
+
+}
+
+loadRequests()
+
+// ================= UPDATE USER (FIXED SAFE) =================
+async function updateUser(reqId, userId){
+
+const name = document.getElementById("name-"+reqId).value
+const email = document.getElementById("email-"+reqId).value
+const phone = document.getElementById("phone-"+reqId).value
+
+// ⚠️ SAFE UPDATE (NO DATA LOSS)
+const { error } = await supabaseClient
+.from("users")
+.update({
+  name: name,
+  email: email,
+  phone: phone
+})
+.eq("id", userId)
+
+if(error){
+  showToast("Update Failed ❌")
+  return
+}
+
+await supabaseClient
+.from("profile_requests")
+.update({ status:"approved" })
+.eq("id", reqId)
+
+showToast("User Updated ✔")
+loadRequests()
+}
+
+// ================= REMOVE REQUEST ONLY =================
+async function removeRequest(reqId){
+
+await supabaseClient
+.from("profile_requests")
+.delete()
+.eq("id", reqId)
+
+showToast("Request Removed 🗑")
+loadRequests()
+}
+
+// ================= APPROVE =================
+async function approve(id){
+
+await supabaseClient
+.from("profile_requests")
+.update({status:"approved"})
+.eq("id",id)
+
+showToast("Approved ✔")
+loadRequests()
+}
+
+// ================= REJECT =================
+async function reject(id){
+
+await supabaseClient
+.from("profile_requests")
+.delete()
+.eq("id",id)
+
+showToast("Rejected ✖")
+loadRequests()
+}
+
+// ================= TOAST =================
+function showToast(msg){
+
+const toast = document.getElementById("toast")
+toast.innerText = msg
+toast.className = "show"
+
+setTimeout(()=> toast.className="", 2500)
+}
+
+</script>
+
+</body>
+</html>
