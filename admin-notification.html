@@ -1,67 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Admin - Send Notification</title>
+<title>Send Notification</title>
 
 <style>
 body{
 font-family:sans-serif;
-background:#f5f5f5;
-margin:0;
+background:#f5f7fb;
+padding:20px;
 }
 
 .box{
-max-width:400px;
-margin:40px auto;
+max-width:420px;
+margin:auto;
 background:#fff;
 padding:20px;
-border-radius:12px;
-box-shadow:0 5px 20px rgba(0,0,0,0.1);
+border-radius:14px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
-h2{
-text-align:center;
-}
+h2{text-align:center}
 
-input, textarea{
+input,textarea,select{
 width:100%;
 padding:10px;
 margin:8px 0;
 border:1px solid #ddd;
-border-radius:6px;
+border-radius:8px;
 }
 
 button{
 width:100%;
 padding:12px;
-background:#d40000;
+background:#0a84ff;
 color:#fff;
 border:none;
-border-radius:6px;
+border-radius:8px;
 font-weight:bold;
 cursor:pointer;
 }
 
-button:hover{
-background:#a80000;
-}
+button:hover{background:#0066cc}
 </style>
-
 </head>
 
 <body>
 
 <div class="box">
+<h2>Send Notification</h2>
 
-<h2>📢 Send Notification</h2>
+<select id="userSelect">
+<option value="global">📢 Send to All Users</option>
+</select>
 
 <input type="text" id="title" placeholder="Title">
 <textarea id="message" placeholder="Message"></textarea>
+<input type="text" id="image" placeholder="Image URL (optional)">
 
-<input type="email" id="email" placeholder="User Email (leave blank = all users)">
-
-<button onclick="sendNotification()">Send Notification</button>
-
+<button onclick="sendNotification()">Send</button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -69,39 +65,53 @@ background:#a80000;
 
 <script>
 
-async function sendNotification(){
+// 🔥 Load users into dropdown
+async function loadUsers(){
+const { data } = await supabaseClient.from("users").select("email");
 
-const title = document.getElementById("title").value
-const message = document.getElementById("message").value
-const email = document.getElementById("email").value
+let select = document.getElementById("userSelect");
 
-if(!title || !message){
-alert("Fill all fields")
-return
+data.forEach(u=>{
+select.innerHTML += `<option value="${u.email}">${u.email}</option>`;
+});
 }
 
-// 🔥 AUTO LOGIC
-const isAll = !email
+loadUsers();
+
+// 🔥 SEND FUNCTION
+async function sendNotification(){
+
+const user_email = document.getElementById("userSelect").value;
+const title = document.getElementById("title").value.trim();
+const message = document.getElementById("message").value.trim();
+const image = document.getElementById("image").value.trim();
+
+if(!title || !message){
+alert("Fill all fields");
+return;
+}
 
 const { error } = await supabaseClient
 .from("notifications")
 .insert([{
 title,
 message,
-user_email: isAll ? null : email,
-is_global: isAll
-}])
+image,
+user_email: user_email,
+is_global: user_email === "global"
+}]);
 
 if(error){
-alert(error.message)
-return
+console.log(error);
+alert("Error: "+error.message);
+return;
 }
 
-alert("Notification sent ✅")
+alert("Notification Sent 🚀");
 
-document.getElementById("title").value=""
-document.getElementById("message").value=""
-document.getElementById("email").value=""
+document.getElementById("title").value="";
+document.getElementById("message").value="";
+document.getElementById("image").value="";
 }
 
 </script>
