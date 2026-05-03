@@ -3,7 +3,9 @@ const bookingId = urlParams.get("id")
 
 let currentBooking = null
 
-// 🔹 LOAD BOOKING
+// ===============================
+// 🔥 LOAD BOOKING (FULL FIX)
+// ===============================
 async function loadBooking(){
 
 const { data, error } = await supabaseClient
@@ -19,80 +21,162 @@ return
 
 currentBooking = data
 
+// ===============================
+// 🔐 SAFE PARSE
+// ===============================
 let parsed = {}
+let extra = {}
+
 try{
 parsed = JSON.parse(data.traveller_details || "{}")
 }catch(e){}
 
+try{
+extra = JSON.parse(data.extra_details || "{}")
+}catch(e){}
+
+// ===============================
+// 📦 BASIC DATA
+// ===============================
 let travellers = parsed.travellers || []
 let details = parsed.package_details || {}
+let rooms = parsed.rooms || []
 
-let perPrice = parsed.package_price || data.package_price || 0
+// ===============================
+// 💰 PRICE FIX
+// ===============================
+let packagePrice = data.package_price || 0
+let originalPrice = data.original_price || 0
+let finalPrice = data.total_price || 0
+let discount = data.coupon_discount || 0
 
-// 🏨 ROOM FIX
-let singleRoom = parsed.single_room || 0
-let doubleRoom = parsed.double_room || 0
+// ===============================
+// 🏨 ROOMS (OLD + NEW FIX)
+// ===============================
+let roomsHtml = ""
 
+if(Array.isArray(rooms) && rooms.length){
+
+roomsHtml = rooms.map(r => {
+
+let type = r.type || "room"
+
+let base = r.price || 0
+let extraPrice = r.extra_price || 0
+let extra = r.extra || 0
+
+let total = base + (extra * extraPrice)
+
+return `
+<div class="box">
+
+<h4>🏨 ${type.toUpperCase()}</h4>
+
+<div>Room Price: ₹${base}</div>
+
+${extra > 0 ? `
+<div>Extra: ${extra} × ₹${extraPrice}</div>
+` : ""}
+
+<div><b>Total: ₹${total}</b></div>
+
+</div>
+`
+}).join("")
+
+}else{
+roomsHtml = "<div>No rooms selected</div>"
+}
+
+// ===============================
+// 📄 MAIN HTML
+// ===============================
 let html = `
 
 <h3>${data.package_name}</h3>
 <p>Status: ${data.status}</p>
 
+<!-- 💰 PAYMENT -->
+<h3>💰 Payment Summary</h3>
+
+<div class="box">
+<div>Package Price: ₹${packagePrice}</div>
+<div>Original Total: ₹${originalPrice}</div>
+<div><b>Final Paid: ₹${finalPrice}</b></div>
+
+${data.coupon_code ? `
+<hr>
+<div style="color:orange">
+🎟 Coupon: <b>${data.coupon_code}</b>
+</div>
+<div>Discount: ${data.coupon_percent || 0}%</div>
+<div>Saved: ₹${discount}</div>
+` : ""}
+
+</div>
+
+<!-- 📍 PLACES -->
 <h4>📍 Places</h4>
 ${(details.places || []).map(p=>`<div>✔ ${p}</div>`).join("")}
 
+<!-- 🎯 ACTIVITIES -->
 <h4>🎯 Activities</h4>
 ${(details.activities || []).map(a=>`<div>✔ ${a}</div>`).join("")}
 
+<!-- 🚗 SERVICES -->
 <h4>🚗 Services</h4>
 ${(details.services || []).map(s=>`<div>✔ ${s}</div>`).join("")}
 
+<!-- 📸 MEDIA -->
 <h4>📸 Media</h4>
 ${(details.media || []).map(m=>`<div>✔ ${m}</div>`).join("")}
 
+<!-- 👥 TRAVELLERS -->
 <h4>👥 Travellers</h4>
 ${travellers.map(t=>`
 <div class="traveller">
-${t.name} | ${t.gender} | Age: ${t.age} | ${t.phone || "-"} 
-<br> ₹${perPrice}
+${t.name} | ${t.gender} | Age: ${t.age} | ${t.phone || "-"}
+<br> ₹${packagePrice}
 </div>
 `).join("")}
 
+<!-- 🏨 ROOMS -->
 <h4>🏨 Rooms</h4>
-<div>Single Room: ${singleRoom}</div>
-<div>Double Room: ${doubleRoom}</div>
+${roomsHtml}
 
-<h3>Total ₹${data.total_price}</h3>
-
+<h3>🏁 Grand Total ₹${finalPrice}</h3>
 `
 
 document.getElementById("bookingBox").innerHTML = html
 
 loadGuides()
 
-// load saved extra
-if(data.extra_details){
-let ex = JSON.parse(data.extra_details)
+// ===============================
+// 🔄 EXTRA DETAILS LOAD
+// ===============================
+if(extra && Object.keys(extra).length){
 
-guideSelect.value = ex.guideId || ""
+guideSelect.value = extra.guideId || ""
 
-cabName.value = ex.cabName || ""
-cabNumber.value = ex.cabNumber || ""
-cabPhoto.value = ex.cabPhoto || ""
+cabName.value = extra.cabName || ""
+cabNumber.value = extra.cabNumber || ""
+cabPhoto.value = extra.cabPhoto || ""
 
-driverName.value = ex.driverName || ""
-driverPhone.value = ex.driverPhone || ""
-driverPhoto.value = ex.driverPhoto || ""
+driverName.value = extra.driverName || ""
+driverPhone.value = extra.driverPhone || ""
+driverPhoto.value = extra.driverPhoto || ""
 
-if(ex.hotels){
-ex.hotels.forEach(h=>addHotel(h))
+if(extra.hotels){
+document.getElementById("hotelContainer").innerHTML = ""
+extra.hotels.forEach(h=>addHotel(h))
 }
 
 }
-
 }
 
+// ===============================
 // 🔹 LOAD GUIDES
+// ===============================
 async function loadGuides(){
 
 const { data } = await supabaseClient
@@ -108,7 +192,9 @@ html += `<option value="${g.id}">${g.name} (${g.phone})</option>`
 guideSelect.innerHTML = html
 }
 
-// 🔹 ADD HOTEL ROW
+// ===============================
+// 🔹 ADD HOTEL
+// ===============================
 function addHotel(data={}){
 
 let container = document.getElementById("hotelContainer")
@@ -129,7 +215,9 @@ container.innerHTML += `
 `
 }
 
-// 🔹 SAVE
+// ===============================
+// 🔹 SAVE EXTRA DETAILS
+// ===============================
 async function saveExtraDetails(){
 
 let hotels = []
@@ -147,7 +235,6 @@ photo: inputs[5].value
 })
 })
 
-// 🔥 SELECTED GUIDE KA EMAIL BHI NIKALO
 let selectedGuideEmail = ""
 
 if(guideSelect.value){
@@ -162,10 +249,9 @@ selectedGuideEmail = guide.email
 }
 }
 
-// ✅ FINAL EXTRA
 let extra = {
 guideId: guideSelect.value,
-guideEmail: selectedGuideEmail,   // 🔥 YE ADD KARO
+guideEmail: selectedGuideEmail,
 
 cabName: cabName.value,
 cabNumber: cabNumber.value,
