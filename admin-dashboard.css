@@ -4,8 +4,8 @@
 body{
   margin:0;
   font-family:'Segoe UI', Arial, sans-serif;
-  background:#0b1220;
-  color:#e5e7eb;
+  background:#f5f5f5;
+  color:#111;
 }
 
 /* =========================
@@ -21,13 +21,12 @@ body{
 ========================= */
 .sidebar{
   width:250px;
-  background:linear-gradient(180deg,#0a1a3a,#1b2a6b);
+  background:linear-gradient(180deg,#b30000,#ff1a1a);
   padding:20px;
   position:sticky;
   top:0;
   height:100vh;
-  box-shadow:5px 0 20px rgba(0,0,0,0.4);
-  border-right:1px solid rgba(255,255,255,0.08);
+  box-shadow:5px 0 20px rgba(0,0,0,0.15);
   overflow:hidden;
 }
 
@@ -39,7 +38,7 @@ body{
   left:-50%;
   width:200%;
   height:200%;
-  background:radial-gradient(circle,rgba(59,130,246,0.15),transparent 60%);
+  background:radial-gradient(circle,rgba(255,255,255,0.15),transparent 60%);
   animation:moveGlow 8s linear infinite;
 }
 
@@ -52,29 +51,33 @@ body{
   text-align:center;
   margin-bottom:25px;
   font-size:24px;
-  color:#60a5fa;
+  color:#fff;
   letter-spacing:1px;
   position:relative;
+  z-index:2;
 }
 
 /* LINKS */
 .sidebar a{
   display:block;
-  color:#e2e8f0;
+  color:white;
   text-decoration:none;
   padding:12px 14px;
   margin-bottom:10px;
-  border-radius:10px;
+  border-radius:12px;
   transition:0.3s;
   font-size:14px;
   position:relative;
   z-index:2;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.1);
 }
 
 .sidebar a:hover{
-  background:rgba(255,255,255,0.12);
+  background:white;
+  color:#c40000;
   transform:translateX(6px);
-  box-shadow:0 0 10px rgba(59,130,246,0.4);
+  box-shadow:0 0 15px rgba(255,255,255,0.4);
 }
 
 /* =========================
@@ -83,30 +86,31 @@ body{
 .content{
   flex:1;
   padding:30px;
-  background:radial-gradient(circle at top,#0f172a,#0b1220);
+  background:#ffffff;
 }
 
 .content h1{
-  font-size:28px;
+  font-size:30px;
   margin-bottom:25px;
-  color:#f1f5f9;
+  color:#b30000;
+  font-weight:700;
 }
 
 /* =========================
    PREMIUM CARDS
 ========================= */
 .card{
-  background:rgba(255,255,255,0.06);
-  backdrop-filter: blur(12px);
-  border:1px solid rgba(255,255,255,0.08);
+  background:white;
+  border:1px solid #eee;
   padding:22px;
   margin-bottom:18px;
-  border-radius:16px;
+  border-radius:18px;
   font-size:16px;
   font-weight:500;
   transition:0.3s;
   position:relative;
   overflow:hidden;
+  box-shadow:0 8px 25px rgba(0,0,0,0.06);
 }
 
 /* hover shine */
@@ -117,7 +121,12 @@ body{
   left:-100%;
   width:100%;
   height:100%;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,0.08),transparent);
+  background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,0,0,0.08),
+    transparent
+  );
   transition:0.5s;
 }
 
@@ -127,22 +136,22 @@ body{
 
 .card:hover{
   transform:translateY(-6px);
-  box-shadow:0 15px 30px rgba(0,0,0,0.4);
+  box-shadow:0 15px 35px rgba(255,0,0,0.15);
 }
 
 /* =========================
    CARD COLORS (STATS)
 ========================= */
 .card:nth-child(2){
-  border-left:4px solid #22c55e;
+  border-left:5px solid #ff0000;
 }
 
 .card:nth-child(3){
-  border-left:4px solid #3b82f6;
+  border-left:5px solid #cc0000;
 }
 
 .card:nth-child(4){
-  border-left:4px solid #f59e0b;
+  border-left:5px solid #ff4d4d;
 }
 
 /* =========================
@@ -152,17 +161,18 @@ body{
   width:320px;
   padding:12px;
   margin-bottom:12px;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,0.15);
-  background:rgba(255,255,255,0.05);
-  color:white;
+  border-radius:12px;
+  border:1px solid #ddd;
+  background:#fff;
+  color:#111;
   outline:none;
   transition:0.3s;
+  font-size:14px;
 }
 
 .content input:focus{
-  border-color:#3b82f6;
-  box-shadow:0 0 10px rgba(59,130,246,0.3);
+  border-color:#ff0000;
+  box-shadow:0 0 12px rgba(255,0,0,0.2);
 }
 
 /* =========================
@@ -170,18 +180,72 @@ body{
 ========================= */
 .content button{
   padding:12px 20px;
-  background:linear-gradient(135deg,#3b82f6,#1d4ed8);
+  background:linear-gradient(135deg,#ff0000,#b30000);
   color:white;
   border:none;
-  border-radius:10px;
+  border-radius:12px;
   cursor:pointer;
   font-size:14px;
   transition:0.3s;
+  font-weight:600;
 }
 
 .content button:hover{
   transform:scale(1.05);
-  box-shadow:0 10px 20px rgba(59,130,246,0.3);
+  box-shadow:0 10px 20px rgba(255,0,0,0.25);
+}
+
+/* =========================
+   TABLE STYLE
+========================= */
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+table th{
+  background:#c40000;
+  color:white;
+  padding:14px;
+  text-align:left;
+}
+
+table td{
+  padding:12px;
+  border-bottom:1px solid #eee;
+  color:#333;
+}
+
+table tr:hover{
+  background:#fff5f5;
+}
+
+/* =========================
+   STATUS BADGES
+========================= */
+.status{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:600;
+  color:white;
+}
+
+.status.pending{
+  background:#ff9800;
+}
+
+.status.success{
+  background:#16a34a;
+}
+
+.status.cancel{
+  background:#dc2626;
 }
 
 /* =========================
@@ -200,11 +264,12 @@ body{
     flex-wrap:wrap;
     justify-content:center;
     gap:8px;
+    padding:15px;
   }
 
   .sidebar a{
     font-size:12px;
-    padding:10px;
+    padding:10px 12px;
   }
 
   .content{
@@ -217,5 +282,14 @@ body{
 
   .card{
     font-size:14px;
+    padding:18px;
+  }
+
+  .content h1{
+    font-size:24px;
+  }
+
+  table{
+    font-size:13px;
   }
 }
