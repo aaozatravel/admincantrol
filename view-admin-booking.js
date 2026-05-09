@@ -51,13 +51,15 @@ let finalPrice = data.total_price || 0
 let discount = data.coupon_discount || 0
 
 // ===============================
-// 🏨 ROOMS (OLD + NEW FIX)
+// 🏨 ROOMS (FIXED)
 // ===============================
 let roomsHtml = ""
 
 if(Array.isArray(rooms) && rooms.length){
 
-roomsHtml = rooms.map(r => {
+roomsHtml = rooms
+.filter(r => r.selected)
+.map(r => {
 
 let type = r.type || "room"
 
@@ -87,7 +89,6 @@ ${extra > 0 ? `
 }else{
 roomsHtml = "<div>No rooms selected</div>"
 }
-
 // ===============================
 // 📄 MAIN HTML
 // ===============================
