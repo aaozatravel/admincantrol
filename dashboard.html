@@ -20,10 +20,8 @@
 </button>
 
 <a href="dashboard.html">Dashboard</a>
-<a href="tours.html">Tours</a>
 <a href="users.html">Users</a>
 <a href="bookings.html">Bookings</a>
-<a href="settings.html">Settings</a>
 <a href="guides.html">Guides</a>
 <a href="guides-list.html">Guides list</a>
 <a href="admin-notification.html">🔔 Send Notification</a>
@@ -86,15 +84,10 @@ let cancel = 0
 
 bookings.forEach(b=>{
 
-let total = 0
-
-try{
-const parsed = JSON.parse(b.traveller_details || "{}")
-total = parsed.total || 0
-}catch(e){}
+let total = Number(b.total_price || 0)
 
 if(b.status === "assigned"){
-profit += Number(total)
+profit += total
 accepted++
 }
 
