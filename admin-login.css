@@ -1,5 +1,5 @@
 /* =========================
-   🌍 GLOBAL RESET
+   🌍 RESET
 ========================= */
 *{
   margin:0;
@@ -15,22 +15,15 @@ body{
 }
 
 /* =========================
-   🌍 ADMIN LOGIN BODY
+   🌍 BODY
 ========================= */
 body.admin-login{
-
-  font-family:'Segoe UI',Arial,sans-serif;
+  font-family:'Segoe UI', Arial, sans-serif;
 
   background:
-  radial-gradient(circle at top left,
-  rgba(239,68,68,0.18),
-  transparent 35%),
-
-  radial-gradient(circle at bottom right,
-  rgba(185,28,28,0.16),
-  transparent 35%),
-
-  linear-gradient(135deg,#fff5f5,#ffffff);
+    radial-gradient(circle at top left,rgba(239,68,68,0.18),transparent 35%),
+    radial-gradient(circle at bottom right,rgba(185,28,28,0.18),transparent 35%),
+    linear-gradient(135deg,#fff5f5,#ffffff);
 
   min-height:100vh;
 
@@ -38,15 +31,14 @@ body.admin-login{
   justify-content:center;
   align-items:center;
 
-  padding:16px;
+  padding:18px;
 
   position:relative;
-
   overflow:hidden;
 }
 
 /* =========================
-   ✨ ANIMATED GLOW
+   ✨ GLOW EFFECT
 ========================= */
 body.admin-login::before,
 body.admin-login::after{
@@ -54,14 +46,11 @@ body.admin-login::after{
   position:absolute;
   border-radius:50%;
   pointer-events:none;
-  z-index:1;
 }
 
 body.admin-login::before{
-
   width:420px;
   height:420px;
-
   background:
   radial-gradient(circle,
   rgba(220,38,38,0.12),
@@ -70,26 +59,25 @@ body.admin-login::before{
   top:-180px;
   left:-180px;
 
-  animation:moveGlow 10s linear infinite;
+  animation:glowMove 10s linear infinite;
 }
 
 body.admin-login::after{
-
-  width:350px;
-  height:350px;
+  width:380px;
+  height:380px;
 
   background:
   radial-gradient(circle,
   rgba(239,68,68,0.10),
   transparent 70%);
 
-  bottom:-140px;
-  right:-140px;
+  bottom:-160px;
+  right:-160px;
 
-  animation:moveGlow2 12s linear infinite;
+  animation:glowMove2 12s linear infinite;
 }
 
-@keyframes moveGlow{
+@keyframes glowMove{
   0%{
     transform:translateY(0) rotate(0deg);
   }
@@ -98,7 +86,7 @@ body.admin-login::after{
   }
 }
 
-@keyframes moveGlow2{
+@keyframes glowMove2{
   0%{
     transform:translateY(0) rotate(0deg);
   }
@@ -111,60 +99,59 @@ body.admin-login::after{
    📦 LOGIN BOX
 ========================= */
 .login-box{
-
   position:relative;
   z-index:2;
 
   width:100%;
-  max-width:400px;
+  max-width:430px;
 
-  background:rgba(255,255,255,0.96);
+  background:rgba(255,255,255,0.97);
 
   backdrop-filter:blur(18px);
 
-  border-radius:28px;
+  padding:42px 34px;
 
-  padding:38px 28px;
+  border-radius:32px;
 
-  border:1px solid rgba(220,38,38,0.10);
+  border:1px solid rgba(220,38,38,0.12);
 
   box-shadow:
-  0 20px 45px rgba(220,38,38,0.16),
-  0 8px 18px rgba(0,0,0,0.05);
+    0 20px 50px rgba(220,38,38,0.14),
+    0 8px 20px rgba(0,0,0,0.06);
 
   text-align:center;
 
   overflow:hidden;
 }
 
-/* top border */
+/* top red line */
 .login-box::before{
   content:"";
   position:absolute;
   top:0;
   left:0;
-
   width:100%;
-  height:5px;
+  height:6px;
 
   background:
-  linear-gradient(90deg,
-  #dc2626,
-  #ef4444,
-  #f87171);
+  linear-gradient(
+    90deg,
+    #dc2626,
+    #ef4444,
+    #f87171
+  );
 }
 
 /* =========================
    🖼 LOGO
 ========================= */
 .login-logo{
-
-  width:90px;
-  height:90px;
+  width:95px;
+  height:95px;
 
   object-fit:contain;
 
-  margin-bottom:16px;
+  margin-bottom:18px;
 
   border-radius:50%;
 
@@ -175,18 +162,16 @@ body.admin-login::after{
   border:2px solid #fee2e2;
 
   box-shadow:
-  0 8px 18px rgba(220,38,38,0.12);
+  0 10px 24px rgba(220,38,38,0.14);
 }
 
 /* =========================
    📝 TITLE
 ========================= */
 .login-box h2{
-
   color:#b91c1c;
 
-  font-size:30px;
-
+  font-size:32px;
   font-weight:800;
 
   margin-bottom:8px;
@@ -195,28 +180,26 @@ body.admin-login::after{
 }
 
 .login-box p{
-
   color:#6b7280;
 
-  font-size:14px;
+  font-size:15px;
 
-  line-height:1.5;
+  margin-bottom:28px;
 
-  margin-bottom:25px;
+  line-height:1.6;
 }
 
 /* =========================
    ✍ INPUTS
 ========================= */
 .login-box input{
-
   width:100%;
 
-  padding:15px;
+  padding:16px 16px;
 
-  margin-bottom:16px;
+  margin-bottom:18px;
 
-  border-radius:16px;
+  border-radius:18px;
 
   border:1px solid #fecaca;
 
@@ -224,54 +207,49 @@ body.admin-login::after{
 
   color:#111827;
 
-  font-size:14px;
+  font-size:15px;
 
   transition:0.3s;
 
   box-shadow:
-  0 3px 8px rgba(0,0,0,0.03);
+  0 4px 10px rgba(0,0,0,0.03);
 }
 
-/* placeholder */
 .login-box input::placeholder{
   color:#9ca3af;
 }
 
-/* focus */
 .login-box input:focus{
-
   outline:none;
 
   border-color:#dc2626;
 
   box-shadow:
-  0 0 15px rgba(220,38,38,0.18);
-
-  transform:scale(1.01);
+  0 0 16px rgba(220,38,38,0.18);
 }
 
 /* =========================
    🔘 BUTTON
 ========================= */
 .login-box button{
-
   width:100%;
 
-  padding:15px;
+  padding:16px;
 
   border:none;
 
-  border-radius:16px;
+  border-radius:18px;
 
   background:
-  linear-gradient(135deg,
-  #ef4444,
-  #b91c1c);
+  linear-gradient(
+    135deg,
+    #ef4444,
+    #b91c1c
+  );
 
   color:white;
 
   font-size:16px;
-
   font-weight:700;
 
   cursor:pointer;
@@ -281,32 +259,27 @@ body.admin-login::after{
   letter-spacing:.4px;
 
   box-shadow:
-  0 10px 22px rgba(220,38,38,0.20);
+  0 12px 24px rgba(220,38,38,0.22);
 }
 
-/* hover */
 .login-box button:hover{
-
   transform:translateY(-2px);
 
   box-shadow:
-  0 15px 28px rgba(220,38,38,0.25);
+  0 16px 32px rgba(220,38,38,0.28);
 }
 
-/* click */
 .login-box button:active{
   transform:scale(0.98);
 }
 
 /* =========================
-   📱 MOBILE RESPONSIVE
+   📱 MOBILE
 ========================= */
 @media(max-width:768px){
 
   body.admin-login{
-
-    padding:14px;
-
+    padding:22px 16px;
     align-items:center;
   }
 
@@ -316,113 +289,90 @@ body.admin-login::after{
 
     max-width:100%;
 
-    padding:28px 20px;
+    padding:38px 26px;
 
-    border-radius:24px;
+    border-radius:28px;
   }
 
   .login-logo{
-
-    width:72px;
-    height:72px;
-
-    padding:8px;
+    width:95px;
+    height:95px;
   }
 
   .login-box h2{
-
-    font-size:24px;
+    font-size:30px;
   }
 
   .login-box p{
-
-    font-size:13px;
-
-    margin-bottom:20px;
+    font-size:15px;
+    margin-bottom:26px;
   }
 
   .login-box input{
-
-    padding:13px;
-
-    font-size:13px;
-
-    border-radius:14px;
+    padding:17px 16px;
+    font-size:15px;
+    border-radius:18px;
   }
 
   .login-box button{
-
-    padding:13px;
-
-    font-size:14px;
-
-    border-radius:14px;
+    padding:17px;
+    font-size:16px;
+    border-radius:18px;
   }
 
   /* smaller glow */
   body.admin-login::before{
+    width:260px;
+    height:260px;
 
-    width:220px;
-    height:220px;
-
-    top:-110px;
-    left:-110px;
+    top:-120px;
+    left:-120px;
   }
 
   body.admin-login::after{
+    width:240px;
+    height:240px;
 
-    width:180px;
-    height:180px;
-
-    bottom:-90px;
-    right:-90px;
+    bottom:-110px;
+    right:-110px;
   }
 }
 
 /* =========================
-   📱 EXTRA SMALL MOBILE
+   📱 EXTRA SMALL DEVICES
 ========================= */
-@media(max-width:420px){
+@media(max-width:480px){
 
   body.admin-login{
-    padding:12px;
+    padding:18px 14px;
   }
 
   .login-box{
-
-    padding:24px 16px;
-
-    border-radius:20px;
+    padding:34px 22px;
+    border-radius:26px;
   }
 
   .login-logo{
-
-    width:65px;
-    height:65px;
+    width:88px;
+    height:88px;
   }
 
   .login-box h2{
-
-    font-size:21px;
+    font-size:28px;
   }
 
   .login-box p{
-
-    font-size:12px;
+    font-size:14px;
   }
 
   .login-box input{
-
-    padding:12px;
-
-    font-size:12px;
+    padding:16px;
+    font-size:14px;
   }
 
   .login-box button{
-
-    padding:12px;
-
-    font-size:13px;
+    padding:16px;
+    font-size:15px;
   }
 }
 
@@ -432,13 +382,15 @@ body.admin-login::after{
 @media(min-width:1200px){
 
   .login-box{
-
-    max-width:430px;
-
-    padding:45px 36px;
+    max-width:460px;
+    padding:50px 40px;
   }
 
   .login-box h2{
-    font-size:34px;
+    font-size:36px;
+  }
+
+  .login-box p{
+    font-size:16px;
   }
 }
