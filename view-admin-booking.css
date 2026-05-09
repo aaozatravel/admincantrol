@@ -1,80 +1,226 @@
-/* 🌍 BODY */
+/* =========================
+   🌍 BODY
+========================= */
 body{
-  font-family:Arial;
-  background:#ffffff;
-  color:#111;
-  padding:15px;
+  margin:0;
+  padding:20px;
+  font-family:'Segoe UI', Arial, sans-serif;
+  background:linear-gradient(135deg,#fff5f5,#ffffff);
+  color:#111827;
 }
 
-/* 📦 BOOKING BOX */
+/* =========================
+   📦 MAIN BOOKING BOX
+========================= */
 #bookingBox{
-  background:#fff;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:20px;
-  border:2px solid #ef4444;
-  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  background:white;
+  padding:25px;
+  border-radius:24px;
+  margin-bottom:25px;
+  border:1px solid #fecaca;
+  box-shadow:0 15px 35px rgba(220,38,38,0.12);
+  position:relative;
+  overflow:hidden;
 }
 
-/* 👤 TRAVELLER */
-.traveller{
-  background:#fff5f5;
-  padding:10px;
-  border-radius:10px;
-  margin-bottom:8px;
-  border:1px solid #fca5a5;
-}
-
-/* INPUT + SELECT */
-input,select{
+/* top glow */
+#bookingBox::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
   width:100%;
-  padding:10px;
-  margin-bottom:10px;
-  border-radius:8px;
-  border:1px solid #f87171;
-  background:#fff;
-  color:#111;
+  height:5px;
+  background:linear-gradient(90deg,#dc2626,#ef4444,#f87171);
 }
 
-/* INPUT FOCUS */
-input:focus,select:focus{
-  outline:none;
-  border-color:#dc2626;
-  box-shadow:0 0 5px rgba(220,38,38,0.4);
+/* =========================
+   🔴 HEADINGS
+========================= */
+h2,h3,h4{
+  color:#b91c1c;
+  margin-top:0;
+  font-weight:700;
+  letter-spacing:.3px;
 }
 
-/* 🔘 BUTTON */
-button{
-  padding:12px;
-  margin-top:10px;
-  border:none;
-  border-radius:10px;
-  background:#ef4444;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
+/* =========================
+   👤 TRAVELLER CARD
+========================= */
+.traveller{
+  background:linear-gradient(135deg,#fff,#fff5f5);
+  padding:14px;
+  border-radius:18px;
+  margin-bottom:12px;
+  border:1px solid #fecaca;
+  box-shadow:0 5px 12px rgba(0,0,0,0.05);
   transition:0.3s;
 }
 
-button:hover{
-  background:#dc2626;
+.traveller:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 20px rgba(220,38,38,0.12);
 }
 
-/* 🏨 HOTEL ROW */
+/* =========================
+   📦 BOXES
+========================= */
+.box{
+  background:#ffffff;
+  border:1px solid #fee2e2;
+  border-left:5px solid #dc2626;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow:0 6px 16px rgba(0,0,0,0.05);
+}
+
+/* =========================
+   🏨 HOTEL ROW
+========================= */
 .hotel-row{
-  background:#fff;
-  padding:12px;
-  border-radius:10px;
-  margin-bottom:10px;
+  background:linear-gradient(135deg,#ffffff,#fff7f7);
+  padding:16px;
+  border-radius:18px;
+  margin-bottom:14px;
+  border:1px solid #fecaca;
+  box-shadow:0 6px 14px rgba(220,38,38,0.08);
+  transition:0.3s;
+}
+
+.hotel-row:hover{
+  transform:translateY(-2px);
+}
+
+/* =========================
+   ✍ INPUT + SELECT
+========================= */
+input,
+select{
+  width:100%;
+  padding:13px;
+  margin-bottom:12px;
+  border-radius:14px;
   border:1px solid #fca5a5;
+  background:#fff;
+  color:#111827;
+  font-size:14px;
+  transition:0.3s;
+  box-sizing:border-box;
 }
 
-/* HOTEL INPUT */
-.hotel-row input{
-  margin-bottom:6px;
+/* INPUT FOCUS */
+input:focus,
+select:focus{
+  outline:none;
+  border-color:#dc2626;
+  box-shadow:0 0 12px rgba(220,38,38,0.18);
+  transform:scale(1.01);
 }
 
-/* 🔴 HEADINGS */
-h2, h3, h4{
-  color:#dc2626;
+/* PLACEHOLDER */
+input::placeholder{
+  color:#9ca3af;
+}
+
+/* =========================
+   🔘 BUTTONS
+========================= */
+button{
+  padding:13px 18px;
+  margin-top:10px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,#ef4444,#b91c1c);
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
+  font-size:14px;
+  box-shadow:0 8px 18px rgba(220,38,38,0.2);
+}
+
+/* BUTTON HOVER */
+button:hover{
+  transform:translateY(-2px) scale(1.02);
+  box-shadow:0 12px 22px rgba(220,38,38,0.25);
+}
+
+/* DELETE BUTTON */
+.hotel-row button{
+  width:100%;
+  background:linear-gradient(135deg,#7f1d1d,#450a0a);
+}
+
+.hotel-row button:hover{
+  background:linear-gradient(135deg,#991b1b,#5f1010);
+}
+
+/* =========================
+   📸 IMAGES
+========================= */
+img{
+  max-width:100%;
+  border-radius:14px;
+  margin-top:10px;
+  border:1px solid #fecaca;
+}
+
+/* =========================
+   🧾 TOTAL SECTION
+========================= */
+.total-box{
+  background:linear-gradient(135deg,#dc2626,#991b1b);
+  color:white;
+  padding:20px;
+  border-radius:20px;
+  text-align:center;
+  font-size:20px;
+  font-weight:700;
+  margin-top:20px;
+  box-shadow:0 12px 24px rgba(220,38,38,0.25);
+}
+
+/* =========================
+   📱 MOBILE
+========================= */
+@media(max-width:768px){
+
+  body{
+    padding:12px;
+  }
+
+  #bookingBox{
+    padding:18px;
+    border-radius:20px;
+  }
+
+  .traveller,
+  .hotel-row,
+  .box{
+    padding:12px;
+  }
+
+  input,
+  select{
+    padding:12px;
+    font-size:13px;
+  }
+
+  button{
+    width:100%;
+    font-size:13px;
+  }
+
+  h2{
+    font-size:24px;
+  }
+
+  h3{
+    font-size:20px;
+  }
+
+  h4{
+    font-size:17px;
+  }
 }
