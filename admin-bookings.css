@@ -1,107 +1,238 @@
+/* =========================
+   BASE
+========================= */
 body{
   margin:0;
-  font-family:Arial;
-  background:#0f172a;
-  color:white;
+  font-family:'Segoe UI', Arial, sans-serif;
+  background:#fff5f5;
+  color:#111827;
   padding:15px;
 }
 
+/* =========================
+   TITLE
+========================= */
 .title{
   text-align:center;
-  margin-bottom:20px;
+  margin-bottom:25px;
+  font-size:28px;
+  font-weight:700;
+  color:#b91c1c;
 }
 
-/* TABLE */
+/* =========================
+   TABLE WRAPPER
+========================= */
+.table-box{
+  overflow-x:auto;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(220,38,38,0.12);
+}
+
+/* =========================
+   TABLE
+========================= */
 table{
   width:100%;
   border-collapse:collapse;
-  background:#1e293b;
-  border-radius:10px;
+  background:white;
+  border-radius:18px;
   overflow:hidden;
 }
 
-th,td{
-  padding:12px;
+/* =========================
+   TABLE HEAD
+========================= */
+th{
+  background:linear-gradient(135deg,#dc2626,#b91c1c);
+  color:white;
+  padding:15px;
   text-align:center;
+  font-size:14px;
+  letter-spacing:.5px;
 }
 
-th{
-  background:#334155;
-  color:#38bdf8;
+/* =========================
+   TABLE ROWS
+========================= */
+td{
+  padding:14px;
+  text-align:center;
+  border-bottom:1px solid #fee2e2;
+  font-size:14px;
 }
 
 tr{
-  border-bottom:1px solid #475569;
+  transition:0.3s;
 }
 
-/* STATUS */
+tr:hover{
+  background:#fef2f2;
+}
+
+/* =========================
+   STATUS BADGES
+========================= */
 .status{
-  padding:5px 10px;
-  border-radius:8px;
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:30px;
   font-size:12px;
+  font-weight:700;
   text-transform:capitalize;
-}
-
-.status.pending{
-  background:orange;
-}
-
-.status.assigned{
-  background:#22c55e;
-}
-
-.status.waiting{
-  background:#3b82f6;
-}
-
-.status.rejected{
-  background:red;
-}
-
-/* BUTTONS */
-button{
-  border:none;
-  padding:6px 10px;
-  margin:2px;
-  border-radius:6px;
   color:white;
-  cursor:pointer;
-  font-size:12px;
+  letter-spacing:.5px;
 }
 
-.view{
-  background:#3b82f6;
+/* Pending */
+.status.pending{
+  background:#dc2626;
 }
 
-.accept{
-  background:#22c55e;
+/* Assigned */
+.status.assigned{
+  background:#b91c1c;
 }
 
-.waiting{
-  background:#f59e0b;
-}
-
-.delete{
+/* Waiting */
+.status.waiting{
   background:#ef4444;
 }
 
-/* MOBILE */
-@media(max-width:600px){
+/* Rejected */
+.status.rejected{
+  background:#7f1d1d;
+}
+
+/* Completed */
+.status.completed{
+  background:#991b1b;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+button{
+  border:none;
+  padding:8px 12px;
+  margin:3px;
+  border-radius:10px;
+  color:white;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:600;
+  transition:0.3s;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+button:hover{
+  transform:translateY(-2px) scale(1.03);
+}
+
+/* VIEW */
+.view{
+  background:linear-gradient(135deg,#ef4444,#dc2626);
+}
+
+/* ACCEPT */
+.accept{
+  background:linear-gradient(135deg,#dc2626,#991b1b);
+}
+
+/* WAITING */
+.waiting{
+  background:linear-gradient(135deg,#f87171,#ef4444);
+}
+
+/* DELETE */
+.delete{
+  background:linear-gradient(135deg,#7f1d1d,#450a0a);
+}
+
+/* TIMETABLE */
+.timetable{
+  background:linear-gradient(135deg,#b91c1c,#7f1d1d);
+  color:white;
+  border:none;
+  padding:8px 12px;
+  border-radius:10px;
+  margin:3px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.timetable:hover{
+  transform:translateY(-2px);
+}
+
+/* =========================
+   SEARCH / FILTER INPUT
+========================= */
+input,select{
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #fecaca;
+  outline:none;
+  margin-bottom:15px;
+  background:white;
+  color:#111827;
+  transition:0.3s;
+}
+
+input:focus,
+select:focus{
+  border-color:#dc2626;
+  box-shadow:0 0 10px rgba(220,38,38,0.2);
+}
+
+/* =========================
+   CARDS MOBILE
+========================= */
+.mobile-card{
+  display:none;
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media(max-width:768px){
+
+  body{
+    padding:10px;
+  }
+
+  .title{
+    font-size:22px;
+  }
+
   table{
     font-size:12px;
   }
 
+  th,td{
+    padding:10px 6px;
+  }
+
   button{
-    padding:5px;
-    font-size:10px;
+    width:100%;
+    margin-top:5px;
+    font-size:11px;
+    padding:8px;
+  }
+
+  .timetable{
+    width:100%;
   }
 }
 
-.timetable{
-background:#2563eb;
-color:white;
-border:none;
-padding:6px 10px;
-border-radius:6px;
-margin:2px;
+/* =========================
+   EXTRA PREMIUM EFFECT
+========================= */
+table{
+  backdrop-filter:blur(10px);
+}
+
+tbody tr:last-child td{
+  border-bottom:none;
 }
